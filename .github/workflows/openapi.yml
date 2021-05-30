@@ -5,15 +5,23 @@ on:
     branches: [ master ]
     paths:
       - api-specification.yaml
+  workflow_dispatch:
 
 jobs:
   copy-to-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Copy api-specification.yaml to docs branch
-        uses: planetoftheweb/copy-to-branches@v1
-        env:
-          files: api-specification.yaml
-          key: master
-          branches: docs
+        run: |
+          cp ./api-specification.yaml $RUNNER_TEMP/api-specification.yaml
+          git checkout docs
+          cp $RUNNER_TEMP/api-specification.yaml ./api-specification.yaml
+          git add ./api-specification.yaml
+          git config user.email "noreply@github.com"
+          git config user.name "GitHub Actions"
+          git commit -m "Update API specification"
+          git push origin docs
+          git checkout master
