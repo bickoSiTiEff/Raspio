@@ -2,6 +2,10 @@ openapi: 3.0.0
 info:
   title: Raspio API Documentation
 
+servers:
+  - url: http://localhost:3000/
+    description: Local development server
+
 components:
   schemas:
     Song:
