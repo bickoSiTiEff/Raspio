@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  title: Raspio API Documentation
+
+components:
+  schemas:
+    Song:
+      type: object
+      properties:
+        path:
+          type: string
+          description: Local path on the Raspberry Pi that can be used like an ID.
+        title:
+          type: string
+          description: Title of the song.
+        artist:
+          type: string
+          description: Artist that created the song.
+        duration:
+          type: integer
+          minimum: 0
+
+paths:
+  /transmission/start:
+    post:
+      summary: Starts radio transmission.
+      parameters:
+        - name: frequency
+          description: The frequency in MHz that should be used for the transmission.
+          in: query
+          schema:
+            type: integer
+          required: true
+      responses:
+        '204':
+          description: Transmission has started.
+        '400':
+          description: Transmission is already running.
+      tags:
+        - transmission
+  /transmission/stop:
+    post:
+      summary: Stops radio transmission.
+      responses:
+        '204':
+          description: Transmission has stopped.
+        '404':
+          description: Transmission was not running.
+      tags:
+        - transmission
+  /songs:
+    get:
+      summary: Lists all available songs.
+      responses:
+        '200':
+          description: List of all songs indexed by MPD.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Song'
+      tags:
+        - library
+  /playlist:
+    get:
+      summary: Lists all songs in the playlist.
+      responses:
+        '200':
+          description: List of all songs in the playlist.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Song'
+      tags:
+        - playlist
+    post:
+      summary: Adds a song to the playlist.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                path:
+                  type: string
+                  description: Path to the song in the MPD library.
+                position:
+                  type: integer
+                  description: Position in the playlist. The songs after the position are moved behind the newly inserted song. If undefined, the song is placed at the end.
+              required:
+                - path
+            examples:
+              end:
+                summary: Placing a new song at the end.
+                value:
+                  path: "ambient/Loscil/2010 - Endless Falls/01. Endless Falls.mp3"
+              specific:
+                summary: Placing a new song at the start.
+                value:
+                  path: "ambient/Loscil/2010 - Endless Falls/01. Endless Falls.mp3"
+                  position: 0
+      responses:
+        '201':
+          description: Song was added.
+        default:
+          description: Unexpected error.
+      tags:
+        - playlist
+    delete:
+      summary: Remove a song from the playlist.
+      parameters:
+        - name: position
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: Position of the song that should be removed.
+      responses:
+        '204':
+          description: Song was removed from playlist.
+        '404':
+          description: There is no song on this position.
+      tags:
+        - playlist
+  /playback/play:
+    post:
+      summary: Starts playing the current playlist.
+      responses:
+        '204':
+          description: Playback was started.
+      tags:
+        - playback
+  /playback/next:
+    post:
+      summary: Skips the current song and plays the next one.
+      responses:
+        '204':
+          description: Song was skipped.
+      tags:
+        - playback
+  /playback/stop:
+    post:
+      summary: Stops playing the current song.
+      responses:
+        '204':
+          description: Playback was stopped.
+      tags:
+        - playback
