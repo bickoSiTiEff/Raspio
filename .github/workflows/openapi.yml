@@ -1,0 +1,19 @@
+name: Update OpenAPI documentation
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - api-specification.yaml
+
+jobs:
+  copy-to-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Copy api-specification.yaml to docs branch
+        uses: planetoftheweb/copy-to-branches@v1
+        env:
+          files: api-specification.yaml
+          key: master
+          branches: docs
