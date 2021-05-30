@@ -21,6 +21,10 @@ These files consist of:
 
 * [Project proposal](documents/Raspio%20Projektantrag.pdf)
 
+## Documentation
+
+The current API specification can be viewed at https://docs.bickositieff.me/.
+
 ## Legal
 
 **© bickoSiTiEff. All rights reserved.**
