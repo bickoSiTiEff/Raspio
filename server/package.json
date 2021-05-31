@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "dev": "ts-node src/server.ts",
+	"lint": "eslint .",
     "start": "ts-node build/server.js",
     "build": "tsc --project ."
   },
