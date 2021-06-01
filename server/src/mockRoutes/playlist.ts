@@ -4,7 +4,7 @@ import {mockLibrary} from "./library";
 
 const playlist = Router();
 
-let mockPlaylist: Song[] = [
+const mockPlaylist: Song[] = [
 	mockLibrary[0]
 ];
 
@@ -29,7 +29,7 @@ playlist.post("/", (req, res) => {
 });
 
 playlist.delete("/", (req, res) => {
-	const position: number = Number(req.query.position);
+	const position = Number(req.query.position);
 
 	if (mockPlaylist[position] === undefined) {
 		res.status(404).send();
