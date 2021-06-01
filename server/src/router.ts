@@ -12,7 +12,7 @@ import playback from "./routes/playback";
 
 const router = Router();
 
-if(process.env.MOCK === "true") {
+if (process.env.MOCK === "true") {
 	router.use("/transmission", mockTransmission);
 	router.use("/songs", mockLibrary);
 	router.use("/playlist", mockPlaylist);
