@@ -1,6 +1,6 @@
 import {Router} from "express";
 
-const router = Router();
+const playlist = Router();
 
 
-export default router;
+export default playlist;
