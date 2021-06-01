@@ -1,5 +1,6 @@
 import express from "express";
 import * as OpenApiValidator from "express-openapi-validator";
+import cors from "cors";
 import {json} from "body-parser";
 import router from "./router";
 
@@ -7,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+app.use(cors());
 app.use(json());
 
 app.use(
@@ -18,7 +20,7 @@ app.use(
 	})
 );
 
-app.use(router);
+app.use("/", router);
 
 app.use((err: any, req: express.Request, res: express.Response, _next: express.NextFunction) => {
 	console.error(err);
