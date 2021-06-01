@@ -112,6 +112,8 @@ paths:
       responses:
         '201':
           description: Song was added.
+        '404':
+          description: A song with this path was not found on the server.
         default:
           description: Unexpected error.
       tags:
