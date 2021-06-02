@@ -34,3 +34,37 @@ jobs:
         with:
           name: debug-build
           path: app/app/build/outputs/apk/debug/raspio.apk
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'push') && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev') }}
+    steps:
+      - name: Clone F-Droid repository
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        run: |
+          git config --global user.email "noreply@github.com"
+          git config --global user.name "GitHub Actions"
+          git clone "https://x-access-token:$API_TOKEN_GITHUB@github.com/bickoSiTiEff/F-Droid.git" .
+      - name: Download previously compiled APK
+        uses: actions/download-artifact@v2
+        with:
+          name: debug-build
+      - name: Move APK into correct folder
+        run: |
+          mv raspio.apk repo/$GITHUB_SHA.apk
+      - name: Update repository indices
+        uses: docker://registry.gitlab.com/fdroid/docker-executable-fdroidserver:master
+        with:
+          entrypoint: /fdroidserver/fdroid
+          args: update
+      - name: Upload changes to F-Droid repository
+        run: |
+          git add .
+          if git status | grep -q "Changes to be committed"
+          then
+            git commit --message "Upload new Raspio version"
+            git push -u origin HEAD:master
+          else
+            echo "No changes detected"
+          fi
