@@ -2,7 +2,7 @@ name: Update OpenAPI documentation
 
 on:
   push:
-    branches: [ master ]
+    branches: [ dev ]
     paths:
       - api-specification.yaml
   workflow_dispatch:
@@ -12,16 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Pushes test file
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          fetch-depth: 0
-      - name: Copy api-specification.yaml to docs branch
-        run: |
-          cp ./api-specification.yaml $RUNNER_TEMP/api-specification.yaml
-          git checkout docs
-          cp $RUNNER_TEMP/api-specification.yaml ./api-specification.yaml
-          git add ./api-specification.yaml
-          git config user.email "noreply@github.com"
-          git config user.name "GitHub Actions"
-          git commit -m "Update API specification"
-          git push origin docs
-          git checkout master
+          source_file: api-specification.yaml
+          destination_repo: bickoSiTiEff/Raspio-Docs
+          destination_branch: master
+          user_email: noreply@github.com
+          user_name: GitHub Actions
+          commit_message: "Update API specification\n\nUpdate from https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
