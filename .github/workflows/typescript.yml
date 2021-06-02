@@ -2,14 +2,12 @@ name: TypeScript CI
 
 on:
   push:
-    branches-ignore: [ docs ]
     paths:
-      - server/
+      - server/**
       - api-specification.yaml
   pull_request:
-    branches-ignore: [ docs ]
     paths:
-      - server/
+      - server/**
       - api-specification.yaml
   workflow_dispatch:
 

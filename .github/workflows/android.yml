@@ -2,14 +2,12 @@ name: Android CI
 
 on:
   push:
-    branches-ignore: [ docs ]
     paths:
-      - app/
+      - app/**
       - api-specification.yaml
   pull_request:
-    branches-ignore: [ docs ]
     paths:
-      - app/
+      - app/**
       - api-specification.yaml
   workflow_dispatch:
 
