@@ -1,8 +1,9 @@
 import Router from "express-promise-router";
+import {Router as ExpressRouter} from "express";
 import {MPC, Song} from "mpc-js";
 import * as API from "../models/Song";
 
-export default async () => {
+export default async (): Promise<ExpressRouter> => {
 	const library = Router();
 
 	const mpc = new MPC();
@@ -10,7 +11,7 @@ export default async () => {
 
 	library.get("/", async (req, res) => {
 		const database = await mpc.database.listAllInfo();
-		
+
 		const songs = database
 			.filter(entry => entry.isSong())
 			.map(i => i as Song) // This has been checked in the previous step, but the compiler is dumb

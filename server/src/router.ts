@@ -1,4 +1,5 @@
 import Router from "express-promise-router";
+import {Router as ExpressRouter} from "express";
 
 import mockTransmission from "./mockRoutes/transmission";
 import mockLibrary from "./mockRoutes/library";
@@ -10,7 +11,7 @@ import library from "./routes/library";
 import playlist from "./routes/playlist";
 import playback from "./routes/playback";
 
-export default async () => {
+export default async (): Promise<ExpressRouter> => {
 	const router = Router();
 
 	if (process.env.MOCK === "true") {
@@ -26,4 +27,4 @@ export default async () => {
 	}
 
 	return router;
-}
+};

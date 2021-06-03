@@ -23,7 +23,8 @@ const startServer = async () => {
 
 	app.use("/", await router());
 
-	app.use((err: any, req: express.Request, res: express.Response, _next: express.NextFunction) => {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+	app.use((err: { status: number, message: string, errors: any }, req: express.Request, res: express.Response, _next: express.NextFunction) => {
 		console.error(err);
 		res.status(err.status || 500).json({
 			message: err.message,
