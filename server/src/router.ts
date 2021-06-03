@@ -1,4 +1,4 @@
-import {Router} from "express";
+import Router from "express-promise-router";
 
 import mockTransmission from "./mockRoutes/transmission";
 import mockLibrary from "./mockRoutes/library";
