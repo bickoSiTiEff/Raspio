@@ -10,18 +10,20 @@ import library from "./routes/library";
 import playlist from "./routes/playlist";
 import playback from "./routes/playback";
 
-const router = Router();
+export default async () => {
+	const router = Router();
 
-if (process.env.MOCK === "true") {
-	router.use("/transmission", mockTransmission);
-	router.use("/songs", mockLibrary);
-	router.use("/playlist", mockPlaylist);
-	router.use("/playback", mockPlayback);
-} else {
-	router.use("/transmission", transmission);
-	router.use("/songs", library);
-	router.use("/playlist", playlist);
-	router.use("/playback", playback);
+	if (process.env.MOCK === "true") {
+		router.use("/transmission", mockTransmission);
+		router.use("/songs", mockLibrary);
+		router.use("/playlist", mockPlaylist);
+		router.use("/playback", mockPlayback);
+	} else {
+		router.use("/transmission", await transmission());
+		router.use("/songs", await library());
+		router.use("/playlist", await playlist());
+		router.use("/playback", await playback());
+	}
+
+	return router;
 }
-
-export default router;

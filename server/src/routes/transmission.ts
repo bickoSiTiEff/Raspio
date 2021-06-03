@@ -1,6 +1,7 @@
 import {Router} from "express";
 
-const transmission = Router();
+export default async () => {
+	const transmission = Router();
 
-
-export default transmission;
+	return transmission;
+};

@@ -1,6 +1,7 @@
 import {Router} from "express";
 
-const playback = Router();
+export default async () => {
+	const playback = Router();
 
-
-export default playback;
+	return playback;
+};
