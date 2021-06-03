@@ -1,6 +1,7 @@
 import {Router} from "express";
 
-const playlist = Router();
+export default async () => {
+	const playlist = Router();
 
-
-export default playlist;
+	return playlist;
+};
