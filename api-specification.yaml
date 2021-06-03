@@ -2,7 +2,7 @@ openapi: 3.0.0
 
 info:
   title: Raspio API Documentation
-  version: 1.0.1
+  version: 1.0.2
 
 servers:
   - url: http://localhost:3000/
@@ -97,6 +97,7 @@ paths:
                 position:
                   type: integer
                   description: Position in the playlist. The songs after the position are moved behind the newly inserted song. If undefined, the song is placed at the end.
+                  minimum: 0
               required:
                 - path
             examples:
@@ -126,6 +127,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 0
           description: Position of the song that should be removed.
       responses:
         '204':
