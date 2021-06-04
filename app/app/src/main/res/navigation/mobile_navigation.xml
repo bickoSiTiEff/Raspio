@@ -7,9 +7,9 @@
 
     <fragment
             android:id="@+id/navigation_home"
-            android:name="me.bickositieff.raspio.ui.home.HomeFragment"
+            android:name="me.bickositieff.raspio.ui.playlist.PlaylistFragment"
             android:label="@string/title_home"
-            tools:layout="@layout/fragment_home"/>
+            tools:layout="@layout/fragment_playlist"/>
 
     <fragment
             android:id="@+id/navigation_dashboard"
