@@ -1,4 +1,4 @@
-package me.bickositieff.raspio.models
+package me.bickositieff.raspio.ui.models
 
 import androidx.annotation.DrawableRes
 

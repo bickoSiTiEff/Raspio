@@ -4,7 +4,7 @@
     <data>
         <variable
                 name="song"
-                type="me.bickositieff.raspio.models.Song"
+                type="me.bickositieff.raspio.ui.models.Song"
         />
     </data>
 
