@@ -3,7 +3,7 @@ package me.bickositieff.raspio.ui.playlist
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import me.bickositieff.raspio.models.Song
+import me.bickositieff.raspio.ui.models.Song
 
 class PlaylistViewModel(application: Application) : AndroidViewModel(application) {
 

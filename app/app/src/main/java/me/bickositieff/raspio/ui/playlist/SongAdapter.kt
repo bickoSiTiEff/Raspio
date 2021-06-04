@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import me.bickositieff.raspio.databinding.SongItemBinding
-import me.bickositieff.raspio.models.Song
+import me.bickositieff.raspio.ui.models.Song
 
 class SongAdapter(
     playlist: List<Song>
