@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import me.bickositieff.raspio.R
@@ -14,6 +13,7 @@ import me.bickositieff.raspio.R
 class PlaylistFragment : Fragment() {
 
     private lateinit var playlistViewModel: PlaylistViewModel
+    private lateinit var mAdapter: SongAdapter
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -26,9 +26,13 @@ class PlaylistFragment : Fragment() {
         val recyclerView = root.findViewById<RecyclerView>(R.id.playlist_recycler)
 
         val textView: TextView = root.findViewById(R.id.song_title)
-        playlistViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
+        mAdapter = SongAdapter(playlistViewModel.playlist.value!!)
+        recyclerView.adapter = mAdapter
+
+        playlistViewModel.playlist.observe(viewLifecycleOwner){
+            mAdapter.playlist = it
+        }
 
         return root
     }
