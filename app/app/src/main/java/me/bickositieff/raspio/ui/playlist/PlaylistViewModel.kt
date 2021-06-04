@@ -1,13 +1,26 @@
 package me.bickositieff.raspio.ui.playlist
 
-import androidx.lifecycle.LiveData
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import me.bickositieff.raspio.models.Song
 
-class PlaylistViewModel : ViewModel() {
+class PlaylistViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    val playlist = MutableLiveData<List<Song>>().apply {
+        value = ArrayList()
     }
-    val text: LiveData<String> = _text
+
+    fun addSong(song: Song){
+        val tmp = playlist.value!! as ArrayList<Song>
+        tmp.add(song)
+        playlist.value = tmp
+    }
+
+    fun removeSong(index: Int){
+        val tmp = playlist.value!! as ArrayList<Song>
+        tmp.removeAt(index)
+        playlist.value = tmp
+    }
+
 }
