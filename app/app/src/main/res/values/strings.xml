@@ -5,4 +5,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="image_description">Song-Cover</string>
     <string name="transmission">transmission</string>
+    <string name="frequency">Frequency</string>
+    <string name="transmission_state">transmission state</string>
 </resources>
