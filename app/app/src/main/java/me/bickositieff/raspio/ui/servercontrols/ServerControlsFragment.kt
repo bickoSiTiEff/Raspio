@@ -22,10 +22,10 @@ class ServerControlsFragment : Fragment() {
         serverControlsViewModel =
                 ViewModelProvider(this).get(ServerControlsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_server_controls, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        serverControlsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
+        serverControlsViewModel.text.observe(viewLifecycleOwner) {
+            //textView.text = it
+        }
         return root
     }
 }
