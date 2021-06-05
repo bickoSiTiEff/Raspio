@@ -1,6 +1,6 @@
 package me.bickositieff.raspio.api
 
-import me.bickositieff.raspio.ApiDecorator
+import me.bickositieff.raspio.generated.ApiDecorator
 import retrofit2.Retrofit
 
 class ServerURLDecorator(private val url: String) : ApiDecorator {

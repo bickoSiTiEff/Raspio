@@ -53,6 +53,6 @@ dependencies {
 
 kgen {
     specFile = file("../../api-specification.yaml")
-    packageName = "me.bickositieff.raspio"
+    packageName = "me.bickositieff.raspio.generated"
     useInlineClasses = true
 }
