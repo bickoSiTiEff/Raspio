@@ -25,8 +25,6 @@ class PlaylistFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_playlist, container, false)
         val recyclerView = root.findViewById<RecyclerView>(R.id.playlist_recycler)
 
-        val textView: TextView = root.findViewById(R.id.song_title)
-
         mAdapter = SongAdapter(playlistViewModel.playlist.value!!)
         recyclerView.adapter = mAdapter
 
