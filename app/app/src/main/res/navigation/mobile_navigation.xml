@@ -12,10 +12,10 @@
             tools:layout="@layout/fragment_playlist"/>
 
     <fragment
-            android:id="@+id/navigation_dashboard"
-            android:name="me.bickositieff.raspio.ui.dashboard.DashboardFragment"
-            android:label="@string/title_dashboard"
-            tools:layout="@layout/fragment_dashboard"/>
+            android:id="@+id/navigation_server_controls"
+            android:name="me.bickositieff.raspio.ui.servercontrols.ServerControlsFragment"
+            android:label="@string/transmission"
+            tools:layout="@layout/fragment_server_controls"/>
 
     <fragment
             android:id="@+id/navigation_notifications"
