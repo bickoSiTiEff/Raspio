@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">Raspio</string>
     <string name="title_playlist">Playlist</string>
-    <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="image_description">Song-Cover</string>
-    <string name="transmission">transmission</string>
+    <string name="transmission">Transmission</string>
     <string name="frequency">Frequency</string>
     <string name="transmission_state">transmission state</string>
 </resources>
