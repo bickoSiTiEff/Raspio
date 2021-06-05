@@ -13,7 +13,7 @@
 
     <fragment
             android:id="@+id/navigation_server_controls"
-            android:name="me.bickositieff.raspio.ui.servercontrols.ServerControlsFragment"
+            android:name="me.bickositieff.raspio.ui.serverControls.ServerControlsFragment"
             android:label="@string/transmission"
             tools:layout="@layout/fragment_server_controls"/>
 
