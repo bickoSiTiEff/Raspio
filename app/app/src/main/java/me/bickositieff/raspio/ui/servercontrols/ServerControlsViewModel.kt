@@ -1,10 +1,10 @@
-package me.bickositieff.raspio.ui.dashboard
+package me.bickositieff.raspio.ui.servercontrols
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DashboardViewModel : ViewModel() {
+class ServerControlsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"

@@ -1,4 +1,4 @@
-package me.bickositieff.raspio.ui.dashboard
+package me.bickositieff.raspio.ui.servercontrols
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import me.bickositieff.raspio.R
 
-class DashboardFragment : Fragment() {
+class ServerControlsFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var serverControlsViewModel: ServerControlsViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-                ViewModelProvider(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        serverControlsViewModel =
+                ViewModelProvider(this).get(ServerControlsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_server_controls, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
+        serverControlsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
