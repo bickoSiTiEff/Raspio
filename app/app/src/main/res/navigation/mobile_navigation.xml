@@ -3,10 +3,10 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/mobile_navigation"
-            app:startDestination="@+id/navigation_home">
+            app:startDestination="@+id/navigation_playlist">
 
     <fragment
-            android:id="@+id/navigation_home"
+            android:id="@+id/navigation_playlist"
             android:name="me.bickositieff.raspio.ui.playlist.PlaylistFragment"
             android:label="@string/title_playlist"
             tools:layout="@layout/fragment_playlist"/>

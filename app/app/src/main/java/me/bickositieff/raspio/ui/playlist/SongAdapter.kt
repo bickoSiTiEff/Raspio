@@ -28,8 +28,5 @@ class SongAdapter(
 
     inner class ViewHolder(val binding: SongItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        init {
-            val view = binding.root
-        }
     }
 }
