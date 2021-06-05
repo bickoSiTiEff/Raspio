@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 
 class ServerControlsViewModel : ViewModel() {
 
-    val frequency = MutableLiveData("88")
+    val frequency = MutableLiveData<String>().apply {
+        value = "88"
+    }
 
     val transmissionOn = MutableLiveData(false)
 
