@@ -7,6 +7,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import me.bickositieff.raspio.api.ServerURLDecorator
+import me.bickositieff.raspio.generated.ApiHolder
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,5 +24,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_playlist, R.id.navigation_server_controls, R.id.navigation_notifications))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        ApiHolder.decorator = ServerURLDecorator("http://10.0.2.2:3000")
     }
 }
