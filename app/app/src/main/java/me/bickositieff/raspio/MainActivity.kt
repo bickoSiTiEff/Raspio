@@ -24,6 +24,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_playlist, R.id.navigation_server_controls, R.id.navigation_notifications))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+    
+    init {
         ApiHolder.decorator = ServerURLDecorator("http://10.0.2.2:3000")
     }
 }
