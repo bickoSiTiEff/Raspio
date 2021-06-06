@@ -18,9 +18,8 @@ class ServerControlsViewModel(application: Application) : AndroidViewModel(appli
 
     fun changeTransmissionState(on: Boolean) {
         if(transmissionOn.value == on) return
-        val frequencyNum: Int
-        try {
-            frequencyNum = frequency.value?.toInt() ?: 0
+        val frequencyNum = try {
+            frequency.value?.toInt() ?: 0
         } catch (e: NumberFormatException) {
             Toast.makeText(getApplication(), "Unusable frequency. Please input a positive number", Toast.LENGTH_LONG).show()
             return
