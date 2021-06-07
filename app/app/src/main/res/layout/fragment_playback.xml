@@ -5,7 +5,6 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.text.InputType"/>
         <variable
                 name="viewModel"
                 type="me.bickositieff.raspio.ui.playback.PlaybackViewModel"/>
@@ -18,6 +17,7 @@
             android:id="@+id/frameLayout">
         <ImageButton
                 android:src="@android:drawable/ic_media_previous"
+                android:onClick="@{() -> viewModel.stopPlayback()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/stopPlayback"
@@ -30,6 +30,7 @@
                 android:contentDescription="@string/stop_playback"/>
         <ImageButton
                 android:src="@{viewModel.playbackRunning ? @android:drawable/ic_media_pause : @android:drawable/ic_media_play}"
+                android:onClick="@{() -> viewModel.playPause()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/playPlayback"
@@ -42,6 +43,7 @@
                 android:contentDescription="@string/play_pause_the_playback"/>
         <ImageButton
                 android:src="@android:drawable/ic_media_next"
+                android:onClick="@{() -> viewModel.skipSong()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/skipPlayback"
