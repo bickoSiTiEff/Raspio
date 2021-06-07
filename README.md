@@ -21,6 +21,12 @@ These files consist of:
 
 * [Project proposal](documents/Raspio%20Projektantrag.pdf)
 
+## Software Distribution
+
+Development previews of the app can currently be downloaded from our [F-Droid Repository](https://fdroid.bickositieff.me/repo/).
+
+In the future there will also be prebuilt SD-Card images as well as an install script for configuration of the Raspberry Pi server.
+
 ## Documentation
 
 The current API specification can be viewed at https://docs.bickositieff.me/.
