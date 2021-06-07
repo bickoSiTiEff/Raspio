@@ -3,24 +3,13 @@ package me.bickositieff.raspio.ui.playlist
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
+import me.bickositieff.raspio.generated.api.PlaylistApi
 import me.bickositieff.raspio.ui.models.Song
 
 class PlaylistViewModel(application: Application) : AndroidViewModel(application) {
-
-    val playlist = MutableLiveData<List<Song>>().apply {
-        value = ArrayList()
+    val playlist = liveData {
+        emit(emptyList())
+        emit(PlaylistApi.getPlaylist().body()!!.map { Song(it.title!!, it.artist!!, it.duration!!, null) })
     }
-
-    fun addSong(song: Song){
-        val tmp = playlist.value!! as ArrayList<Song>
-        tmp.add(song)
-        playlist.value = tmp
-    }
-
-    fun removeSong(index: Int){
-        val tmp = playlist.value!! as ArrayList<Song>
-        tmp.removeAt(index)
-        playlist.value = tmp
-    }
-
 }

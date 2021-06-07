@@ -24,7 +24,7 @@ class PlaylistFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_playlist, container, false)
         val recyclerView = root.findViewById<RecyclerView>(R.id.playlist_recycler)
 
-        mAdapter = SongAdapter(playlistViewModel.playlist.value!!)
+        mAdapter = SongAdapter(playlistViewModel.playlist.value ?: emptyList())
         recyclerView.adapter = mAdapter
 
         playlistViewModel.playlist.observe(viewLifecycleOwner){
