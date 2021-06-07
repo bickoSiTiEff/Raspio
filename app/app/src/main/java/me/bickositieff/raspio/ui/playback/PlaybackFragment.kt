@@ -22,10 +22,6 @@ class PlaybackFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        binding.playPlayback.setOnClickListener { _ ->
-            viewModel.playPause()
-        }
-
         return binding.root
     }
 }
