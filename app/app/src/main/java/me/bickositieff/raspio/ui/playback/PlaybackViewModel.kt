@@ -14,11 +14,9 @@ class PlaybackViewModel : ViewModel() {
         if (playbackRunning.value!!) {
             //Pause API call when implemented
             playbackRunning.value = false
-            println("Playback off")
         } else {
             viewModelScope.launch { PlaybackApi.postPlaybackPlay() }
             playbackRunning.value = true
-            println("Playback on")
         }
     }
 
