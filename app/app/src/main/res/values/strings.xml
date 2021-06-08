@@ -13,4 +13,5 @@
     <string name="confirm">Confirm</string>
     <string name="raspi_ip">Raspi IP</string>
     <string name="enter_ip">Enter Raspi IP:</string>
+    <string name="select_server">Select Server</string>
 </resources>

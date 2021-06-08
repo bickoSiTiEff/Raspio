@@ -22,4 +22,9 @@
             android:name="me.bickositieff.raspio.ui.notifications.NotificationsFragment"
             android:label="@string/title_notifications"
             tools:layout="@layout/fragment_notifications"/>
+    <fragment
+            android:id="@+id/navigation_server_select"
+            android:name="me.bickositieff.raspio.ui.serverSelect.ServerSelectFragment"
+            android:label="Select Server"
+            tools:layout="@layout/fragment_server_select"/>
 </navigation>
