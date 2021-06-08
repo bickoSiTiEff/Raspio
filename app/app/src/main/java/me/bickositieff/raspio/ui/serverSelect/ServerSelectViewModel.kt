@@ -10,12 +10,12 @@ class ServerSelectViewModel(application: Application) : AndroidViewModel(applica
     }
     val valid: LiveData<Boolean> = ip.map { ip ->
         //check IP-syntax
-        //check connectivity
         true
     }
 
     fun confirmIP(){
-        //save as shared Pref
+        //check connectivity
+
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplication())
         with(sharedPrefs.edit()){
             putString("ip", ip.value!!)
