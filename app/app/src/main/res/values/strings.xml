@@ -9,4 +9,8 @@
     <string name="stop_playback">Stop the Playback</string>
     <string name="play_pause_the_playback">Play/Pause the playback.</string>
     <string name="skip_song">Skip the song.</string>
+    <string name="watermark">From\nBickoSiTiEff</string>
+    <string name="confirm">Confirm</string>
+    <string name="raspi_ip">Raspi IP</string>
+    <string name="enter_ip">Enter Raspi IP:</string>
 </resources>
