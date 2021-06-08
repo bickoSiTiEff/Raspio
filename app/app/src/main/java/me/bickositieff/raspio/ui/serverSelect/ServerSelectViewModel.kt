@@ -1,11 +1,10 @@
 package me.bickositieff.raspio.ui.serverSelect
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
+import android.app.Application
+import androidx.lifecycle.*
+import androidx.preference.PreferenceManager
 
-class ServerSelectViewModel : ViewModel() {
+class ServerSelectViewModel(application: Application) : AndroidViewModel(application) {
     val ip = MutableLiveData<String>().apply {
         value = ""
     }
@@ -17,5 +16,10 @@ class ServerSelectViewModel : ViewModel() {
 
     fun confirmIP(){
         //save as shared Pref
+        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplication())
+        with(sharedPrefs.edit()){
+            putString("ip", ip.value!!)
+            apply()
+        }
     }
 }
