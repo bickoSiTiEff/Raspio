@@ -2,7 +2,7 @@ openapi: 3.0.0
 
 info:
   title: Raspio API Documentation
-  version: 1.0.2
+  version: 1.1.0
 
 servers:
   - url: http://localhost:3000/
@@ -136,12 +136,80 @@ paths:
           description: There is no song on this position.
       tags:
         - playlist
+  /playback:
+    get:
+      summary: Get the current playback state
+      responses:
+        '200':
+          description: current playback state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  duration:
+                    type: number
+                    minimum: 0
+                    description: Duration of the currently playing song in seconds
+                  elapsed:
+                    type: number
+                    minimum: 0
+                    description: Seconds of the currently playing song that have already elapsed
+                  consume:
+                    type: boolean
+                    description: Whether or not consume mode is enabled
+                  shuffle:
+                    type: boolean
+                    description: Whether or not the playlist is being shuffled
+                  repeat:
+                    type: boolean
+                    description: Whether or not the current song is being looped
+                  currentlyPlayingIndex:
+                    type: number
+                    minimum: 0
+                    description: Index of the currently playing song in the playlist
+                  state:
+                    type: string
+                    enum:
+                      - play
+                      - stop
+                      - pause
+                    description: Current playback state
+                  volume:
+                    type: number
+                    minimum: 0
+                    maximum: 100
+                    description: playback volume
+                  crossfade:
+                    type: number
+                    minimum: 0
+                    description: crossfade amount
+                required:
+                  - state
+      tags:
+        - playback
   /playback/play:
     post:
       summary: Starts playing the current playlist.
       responses:
         '204':
           description: Playback was started.
+      tags:
+        - playback
+  /playback/pause:
+    post:
+      summary: Pauses playing the current song/playlist.
+      responses:
+        '204':
+          description: Playback was paused.
+      tags:
+        - playback
+  /playback/previous:
+    post:
+      summary: Plays the previous song or jumps to the start of the current song.
+      responses:
+        '204':
+          description: Previous song is playing.
       tags:
         - playback
   /playback/next:
@@ -158,5 +226,94 @@ paths:
       responses:
         '204':
           description: Playback was stopped.
+      tags:
+        - playback
+  /playback/seek:
+    post:
+      summary: Sets the position of the song that is currently being played.
+      parameters:
+        - name: time
+          description: Playback position to seek to
+          in: query
+          required: true
+          schema:
+            type: number
+            minimum: 0
+      responses:
+        '204':
+          description: Position has been updated.
+      tags:
+        - playback
+  /playback/consume:
+    post:
+      summary: Turns consume mode on/off. Consume mode means that songs are removed from the playlist after they have been played.
+      parameters:
+        - name: consume
+          in: query
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '204':
+          description: Consume mode has been set.
+      tags:
+        - playback
+  /playback/crossfade:
+    post:
+      summary: Sets the crossfade amount. 0 equals disabled.
+      parameters:
+        - name: crossfade duration in seconds
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        '204':
+          description: Crossfade amount has been set.
+      tags:
+        - playback
+  /playback/shuffle:
+    post:
+      summary: Turns shuffle on/off.
+      parameters:
+        - name: shuffle
+          in: query
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '204':
+          description: Shuffle has been set.
+      tags:
+        - playback
+  /playback/repeat:
+    post:
+      summary: Turns repeat mode on/off.
+      parameters:
+        - name: repeat
+          in: query
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '204':
+          description: Repeat mode has been set.
+      tags:
+        - playback
+  /playback/volume:
+    post:
+      summary: Sets the playback volume
+      parameters:
+        - name: volume
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
+      responses:
+        '204':
+          description: Playback volume has been set.
       tags:
         - playback
