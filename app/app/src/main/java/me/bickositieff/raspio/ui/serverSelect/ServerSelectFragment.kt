@@ -6,27 +6,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import me.bickositieff.raspio.R
+import me.bickositieff.raspio.databinding.FragmentServerControlsBinding
+import me.bickositieff.raspio.databinding.FragmentServerSelectBinding
 
 class ServerSelectFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ServerSelectFragment()
-    }
-
-    private lateinit var viewModel: ServerSelectViewModel
+    private val viewModel: ServerSelectViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_server_select, container, false)
-    }
+    ): View {
+        val binding = FragmentServerSelectBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ServerSelectViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+        binding.viewModel = viewModel
 
+        return binding.root
+    }
 }

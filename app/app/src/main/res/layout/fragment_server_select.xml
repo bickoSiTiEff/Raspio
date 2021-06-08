@@ -1,56 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.serverSelect.ServerSelectFragment"
-        android:id="@+id/frameLayout2">
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-            android:text="@string/enter_ip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/labelServerSelect"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="32dp"/>
+    <data>
+        <variable
+                name="viewModel"
+                type="me.bickositieff.raspio.ui.serverSelect.ServerSelectViewModel"/>
+    </data>
 
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="@string/raspi_ip"
-            android:ems="10"
-            android:id="@+id/ipServerSelect"
-            app:layout_constraintTop_toBottomOf="@+id/labelServerSelect"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp"
-            android:importantForAutofill="no"
-            tools:ignore="LabelFor"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.serverSelect.ServerSelectFragment"
+            android:id="@+id/frameLayout2">
 
-    <Button
-            android:text="@string/confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/confirmServerSelect"
-            app:layout_constraintTop_toBottomOf="@+id/ipServerSelect"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp"/>
+        <TextView
+                android:text="@string/enter_ip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/labelServerSelect"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="32dp"/>
 
-    <TextView
-            android:text="@string/watermark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="32dp"
-            android:textAlignment="center"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="@={viewModel.ip}"
+                android:ems="10"
+                android:id="@+id/ipServerSelect"
+                app:layout_constraintTop_toBottomOf="@+id/labelServerSelect"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+                android:text="@string/confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/confirmServerSelect"
+                app:layout_constraintTop_toBottomOf="@+id/ipServerSelect"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"/>
+
+        <TextView
+                android:text="@string/watermark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="32dp"
+                android:textAlignment="center"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
