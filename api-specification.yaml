@@ -262,7 +262,8 @@ paths:
     post:
       summary: Sets the crossfade amount. 0 equals disabled.
       parameters:
-        - name: crossfade duration in seconds
+        - name: amount
+          description: crossfade duration in seconds
           in: query
           required: true
           schema:
