@@ -2,6 +2,8 @@ import Router from "express-promise-router";
 import {Router as ExpressRouter} from "express";
 
 import mockTransmission from "./mockRoutes/transmission";
+import mockNetwork from "./mockRoutes/network";
+import mockPing from "./mockRoutes/ping";
 import mockLibrary from "./mockRoutes/library";
 import mockPlaylist from "./mockRoutes/playlist";
 import mockPlayback from "./mockRoutes/playback";
@@ -15,7 +17,10 @@ export default async (): Promise<ExpressRouter> => {
 	const router = Router();
 
 	if (process.env.MOCK === "true") {
+		console.log("Mock mode is enabled!");
 		router.use("/transmission", mockTransmission);
+		router.use("/network", mockNetwork);
+		router.use("/ping", mockPing);
 		router.use("/songs", mockLibrary);
 		router.use("/playlist", mockPlaylist);
 		router.use("/playback", mockPlayback);
