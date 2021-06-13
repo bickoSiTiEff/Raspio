@@ -129,6 +129,20 @@ paths:
                   $ref: '#/components/schemas/Song'
       tags:
         - library
+    post:
+      summary: Uploads a new song.
+      requestBody:
+        content:
+          audio/mp3:
+            schema:
+              description: The MP3 file that should be uploaded. It should contain as much metadata as possible but at least a title and an artist.
+              type: string
+              format: binary
+      responses:
+        '201':
+          description: The song has been successfully uploaded.
+      tags:
+        - library
 
   /playlist:
     get:
