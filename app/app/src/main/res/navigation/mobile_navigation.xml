@@ -9,7 +9,12 @@
             android:id="@+id/navigation_playlist"
             android:name="me.bickositieff.raspio.ui.playlist.PlaylistFragment"
             android:label="@string/title_playlist"
-            tools:layout="@layout/fragment_playlist"/>
+            tools:layout="@layout/fragment_playlist">
+        <action
+                android:id="@+id/add_song"
+                app:destination="@id/navigation_song_select"
+                app:popUpTo="@id/navigation_playlist"/>
+    </fragment>
 
     <fragment
             android:id="@+id/navigation_server_controls"
@@ -26,4 +31,10 @@
             android:name="me.bickositieff.raspio.ui.serverSelect.ServerSelectFragment"
             android:label="Select Server"
             tools:layout="@layout/fragment_server_select"/>
+    <fragment
+            android:id="@+id/navigation_song_select"
+            android:name="me.bickositieff.raspio.ui.songSelect.SongSelectFragment"
+            android:label="fragment_song_select"
+            tools:layout="@layout/fragment_song_select">
+    </fragment>
 </navigation>
