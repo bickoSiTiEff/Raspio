@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import me.bickositieff.raspio.R
-import me.bickositieff.raspio.ui.playlist.SongAdapter
 
 class SongSelectFragment : Fragment() {
 

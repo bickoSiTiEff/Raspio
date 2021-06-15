@@ -25,6 +25,7 @@ playlist.post("/", (req, res) => {
 		mockPlaylist.push(song);
 	else
 		mockPlaylist.splice(position, 0, song);
+	console.log("[MOCK] Add!");
 	res.status(201).send();
 });
 
