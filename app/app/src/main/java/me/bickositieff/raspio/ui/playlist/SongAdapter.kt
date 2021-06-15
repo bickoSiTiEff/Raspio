@@ -27,6 +27,5 @@ open class SongAdapter(
     override fun getItemCount() = playlist.size
 
     inner class ViewHolder(val binding: SongItemBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-    }
+    ) : RecyclerView.ViewHolder(binding.root)
 }

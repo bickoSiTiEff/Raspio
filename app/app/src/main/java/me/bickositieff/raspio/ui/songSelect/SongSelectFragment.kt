@@ -14,7 +14,7 @@ class SongSelectFragment : Fragment() {
 
 
     private val viewModel: SongSelectViewModel by viewModels()
-    private lateinit var mAdapter: SongAdapter
+    private lateinit var mAdapter: SongSelectAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,

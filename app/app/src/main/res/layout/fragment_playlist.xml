@@ -20,7 +20,7 @@
             android:id="@+id/playlist_add_fab"
             app:layout_constraintEnd_toEndOf="@+id/playlist_recycler"
             app:layout_constraintBottom_toBottomOf="@+id/playlist_recycler"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginEnd="32dp"
             android:contentDescription="@string/add_song"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
