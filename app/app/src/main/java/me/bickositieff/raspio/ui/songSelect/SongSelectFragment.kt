@@ -23,9 +23,9 @@ class SongSelectFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_song_select, container, false)
         val recyclerView = root.findViewById<RecyclerView>(R.id.song_select_recycler)
-        
 
-        mAdapter = SongAdapter(viewModel.availableSongs.value ?: emptyList())
+
+        mAdapter = SongSelectAdapter(viewModel.availableSongs.value ?: emptyList())
         recyclerView.adapter = mAdapter
 
         viewModel.availableSongs.observe(viewLifecycleOwner){
