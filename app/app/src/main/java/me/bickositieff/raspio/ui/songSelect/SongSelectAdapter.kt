@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import me.bickositieff.raspio.R
 import me.bickositieff.raspio.databinding.SongItemBinding
 import me.bickositieff.raspio.ui.models.Song
-import me.bickositieff.raspio.ui.playlist.SongAdapter
 
-class SongSelectAdapter(playlist: List<Song>) :     RecyclerView.Adapter<SongSelectAdapter.ViewHolder>() {
+class SongSelectAdapter(playlist: List<Song>, val viewModel: SongSelectViewModel) :
+    RecyclerView.Adapter<SongSelectAdapter.ViewHolder>() {
     var playlist: List<Song> = playlist
-        set(value){
+        set(value) {
             field = value
             notifyDataSetChanged()
         }
@@ -30,23 +30,26 @@ class SongSelectAdapter(playlist: List<Song>) :     RecyclerView.Adapter<SongSel
         val binding: SongItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.root.setOnLongClickListener {v ->
+            binding.root.setOnLongClickListener { v ->
                 val menu = PopupMenu(binding.root.context, v)
                 menu.inflate(R.menu.popup_select_song)
                 menu.setOnMenuItemClickListener { item ->
-                    when(item.itemId){
-                        R.id.popupNextSong ->
-                        {}
-                        R.id.popupQueueSong ->
-                        {}
-                        else -> {}
+                    when (item.itemId) {
+                        R.id.popupNextSong -> {
+                            viewModel.addAsNext(binding.song!!)
+                        }
+                        R.id.popupQueueSong -> {
+                            viewModel.addToQueue(binding.song!!)
+                        }
+                        else -> {
+                        }
                     }
                     true
                 }
                 menu.show()
                 true
             }
-            
+
         }
     }
 }

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -13,7 +13,7 @@ import me.bickositieff.raspio.R
 
 class PlaylistFragment : Fragment() {
 
-    private lateinit var playlistViewModel: PlaylistViewModel
+    private val playlistViewModel: PlaylistViewModel by viewModels()
     private lateinit var mAdapter: SongAdapter
 
     override fun onCreateView(
@@ -21,8 +21,6 @@ class PlaylistFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        playlistViewModel =
-                ViewModelProvider(this).get(PlaylistViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_playlist, container, false)
         val recyclerView = root.findViewById<RecyclerView>(R.id.playlist_recycler)
 
