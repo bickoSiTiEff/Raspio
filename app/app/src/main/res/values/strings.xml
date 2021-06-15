@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Raspio</string>
     <string name="title_playlist">Playlist</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_settings">Settings</string>
     <string name="image_description">Song-Cover</string>
     <string name="transmission">Transmission</string>
     <string name="frequency">Frequency</string>
@@ -14,4 +14,7 @@
     <string name="raspi_ip">Raspi IP</string>
     <string name="enter_ip">Enter Raspi IP:</string>
     <string name="select_server">Select Server</string>
+    <string name="notification_toggle">notification_toggle</string>
+    <string name="management_toggle">management_toggle</string>
+    <string name="remove_button">remove_button</string>
 </resources>
