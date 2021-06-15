@@ -18,7 +18,7 @@
             tools:layout="@layout/fragment_server_controls"/>
 
     <fragment
-            android:id="@+id/navigation_notifications"
+            android:id="@+id/navigation_settings"
             android:name="me.bickositieff.raspio.ui.preferences.PreferencesFragment"
             android:label="@string/title_settings"/>
     <fragment
