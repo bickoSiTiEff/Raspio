@@ -14,6 +14,7 @@
     <string name="raspi_ip">Raspi IP</string>
     <string name="enter_ip">Enter Raspi IP:</string>
     <string name="select_server">Select Server</string>
+    <string name="add_song">Add a new song to playlist</string>
     <string name="notification_toggle">notification_toggle</string>
     <string name="management_toggle">management_toggle</string>
     <string name="remove_button">remove_button</string>

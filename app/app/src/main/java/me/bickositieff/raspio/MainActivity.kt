@@ -1,14 +1,16 @@
 package me.bickositieff.raspio
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import me.bickositieff.raspio.api.ServerURLDecorator
 import me.bickositieff.raspio.generated.ApiHolder
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,5 +30,10 @@ class MainActivity : AppCompatActivity() {
     
     init {
         ApiHolder.decorator = ServerURLDecorator("http://10.0.2.2:3000")
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return (Navigation.findNavController(this, R.id.nav_host_fragment).navigateUp()
+                || super.onSupportNavigateUp())
     }
 }

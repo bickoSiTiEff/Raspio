@@ -2,7 +2,6 @@ package me.bickositieff.raspio.ui.playlist
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import me.bickositieff.raspio.generated.api.PlaylistApi
 import me.bickositieff.raspio.ui.models.Song
