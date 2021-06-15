@@ -6,8 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.songSelect.SongSelectFragment"
-        android:layout_margin="8dp"
-        >
+        android:layout_margin="8dp">
 
     <EditText
             android:enabled="false"
@@ -37,5 +36,6 @@
             tools:layout_conversion_absoluteWidth="411dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:longClickable="true"
             />
 </androidx.constraintlayout.widget.ConstraintLayout>
