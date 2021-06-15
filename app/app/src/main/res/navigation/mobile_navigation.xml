@@ -34,7 +34,7 @@
     <fragment
             android:id="@+id/navigation_song_select"
             android:name="me.bickositieff.raspio.ui.songSelect.SongSelectFragment"
-            android:label="fragment_song_select"
+            android:label="Add Song"
             tools:layout="@layout/fragment_song_select">
     </fragment>
 </navigation>

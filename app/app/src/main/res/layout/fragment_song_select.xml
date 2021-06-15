@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".ui.songSelect.SongSelectFragment">
+        tools:context=".ui.songSelect.SongSelectFragment"
+        android:layout_margin="8dp"
+        >
+
+    <EditText
+            android:enabled="false"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textUri"
+            android:text="@string/wip"
+            android:ems="10"
+            android:id="@+id/editTextSongURL"
+            android:importantForAutofill="no"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="45dp"
+            tools:layout_conversion_absoluteWidth="213dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/song_select_recycler"
+            tools:ignore="LabelFor"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/song_select_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
-
-</FrameLayout>
+            app:layout_constraintTop_toBottomOf="@id/editTextSongURL"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_conversion_absoluteHeight="731dp"
+            tools:layout_conversion_absoluteWidth="411dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+</androidx.constraintlayout.widget.ConstraintLayout>
