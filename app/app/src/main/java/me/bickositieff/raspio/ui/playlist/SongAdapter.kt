@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import me.bickositieff.raspio.databinding.SongItemBinding
 import me.bickositieff.raspio.ui.models.Song
 
-open class SongAdapter(
+class SongAdapter(
     playlist: List<Song>
 ) :
     RecyclerView.Adapter<SongAdapter.ViewHolder>() {

@@ -12,8 +12,7 @@
             tools:layout="@layout/fragment_playlist">
         <action
                 android:id="@+id/add_song"
-                app:destination="@id/navigation_song_select"
-                app:popUpTo="@id/navigation_playlist"/>
+                app:destination="@id/navigation_song_select"/>
     </fragment>
 
     <fragment
