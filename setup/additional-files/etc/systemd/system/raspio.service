@@ -1,0 +1,12 @@
+[Unit]
+Description=Raspio Server application
+After=network.target
+Requires=mpd.service
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/yarn start
+WorkingDirectory=/raspio/repo/server
