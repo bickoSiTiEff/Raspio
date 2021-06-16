@@ -1,6 +1,5 @@
 #!/bin/bash
 
-RED_ANSI=$'\033[0;31m'
 GREEN_ANSI=$'\033[0;32m'
 BLANK_ANSI=$'\033[0m'
 
@@ -37,7 +36,7 @@ EOF
 
 --------------------------------
 Installing Raspio from branch $GREEN_ANSI$BRANCH$BLANK_ANSI!
-${RED_ANSI}An install log will be saved to /raspio/install.log!${BLANK_ANSI}
+${GREEN_ANSI}An install log will be saved to /raspio/install.log!${BLANK_ANSI}
 EOF
 }
 
@@ -81,6 +80,22 @@ function installMPD() {
 	echo -e "\n${GREEN_ANSI} +\tInstalled MPD. ${BLANK_ANSI}"
 }
 
+function installPiFmAdv() {
+	echo -e "--------------------------------\n${GREEN_ANSI} +\tInstalling PiFmAdv... ${BLANK_ANSI}\n"
+	apt-get install libsndfile1-dev git -y
+	pushd /tmp
+	git clone https://github.com/Miegl/PiFmAdv.git
+	pushd /tmp/PiFmAdv/src
+	make clean
+	make
+	mv pi_fm_adv /raspio/pi_fm_adv
+	chmod 777 /raspio/pi_fm_adv
+	rm -rf /tmp/PiFmAdv
+	popd
+	popd
+	echo -e "\n${GREEN_ANSI} +\tInstalled PiFmAdv. ${BLANK_ANSI}"
+}
+
 function installDiscoverability() {
 	echo -e "--------------------------------\n${GREEN_ANSI} +\tInstalling service discoverability... ${BLANK_ANSI}\n"
 	curl -o /etc/avahi/services/raspio.service "https://raw.githubusercontent.com/bickoSiTiEff/Raspio/$BRANCH/setup/additional-files/etc/avahi/services/raspio.service"
@@ -112,5 +127,6 @@ createDirectories
 updateSystem
 createVirtualAudio
 installMPD
+installPiFmAdv
 installDiscoverability
 footer
