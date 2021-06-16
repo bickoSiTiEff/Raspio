@@ -96,6 +96,44 @@ function installPiFmAdv() {
 	echo -e "\n${GREEN_ANSI} +\tInstalled PiFmAdv. ${BLANK_ANSI}"
 }
 
+function installNodeJS() {
+	echo -e "--------------------------------\n${GREEN_ANSI} +\tInstalling Node.js... (external script)${BLANK_ANSI}\n"
+	curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+	apt-get install nodejs -y
+	echo -e "\n${GREEN_ANSI} +\tInstalled Node.js. ${BLANK_ANSI}"
+}
+
+function installYarn() {
+	echo -e "--------------------------------\n${GREEN_ANSI} +\tInstalling Yarn... ${BLANK_ANSI}\n"
+	curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor > /usr/share/keyrings/yarnkey.gpg
+	echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" > /etc/apt/sources.list.d/yarn.list
+	apt-get update
+	apt-get install yarn -y
+	echo -e "\n${GREEN_ANSI} +\tInstalled Yarn. ${BLANK_ANSI}"
+}
+
+function installRaspioServer() {
+	echo -e "--------------------------------\n${GREEN_ANSI} +\tInstalling Raspio Server... ${BLANK_ANSI}\n"
+	pushd /raspio
+	rm -rf /raspio/repo
+	git clone -b $BRANCH --single-branch --depth 1 https://github.com/bickoSiTiEff/Raspio.git repo
+	pushd /raspio/repo/server
+	yarn
+	yarn build
+	popd
+	popd
+	echo -e "\n${GREEN_ANSI} +\tInstalled Raspio Server. ${BLANK_ANSI}"
+}
+
+function enableRaspioAutostart() {
+	echo -e "--------------------------------\n${GREEN_ANSI} +\tEnabling Raspio Autostart... ${BLANK_ANSI}\n"
+	curl -o /etc/systemd/system/raspio.service "https://raw.githubusercontent.com/bickoSiTiEff/Raspio/$BRANCH/setup/additional-files/etc/systemd/system/raspio.service"
+	systemctl daemon-reload
+	echo "Starting Raspio..."
+	systemctl enable --now raspio.service
+	echo -e "\n${GREEN_ANSI} +\tEnabled Raspio Autostart. ${BLANK_ANSI}"
+}
+
 function installDiscoverability() {
 	echo -e "--------------------------------\n${GREEN_ANSI} +\tInstalling service discoverability... ${BLANK_ANSI}\n"
 	curl -o /etc/avahi/services/raspio.service "https://raw.githubusercontent.com/bickoSiTiEff/Raspio/$BRANCH/setup/additional-files/etc/avahi/services/raspio.service"
@@ -128,5 +166,9 @@ updateSystem
 createVirtualAudio
 installMPD
 installPiFmAdv
+installNodeJS
+installYarn
+installRaspioServer
+enableRaspioAutostart
 installDiscoverability
 footer
