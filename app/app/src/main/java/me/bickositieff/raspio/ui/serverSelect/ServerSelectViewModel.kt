@@ -14,16 +14,10 @@ class ServerSelectViewModel(application: Application) : AndroidViewModel(applica
     }
     val valid: LiveData<Boolean> = ip.map { ip ->
         //check IP-syntax
-        val regex = Regex("^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\$")
+        val regex =
+            Regex("^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\$")
         ip.matches(regex)
     }
 
-    fun confirmIP() {
-        //check connectivity
-        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplication())
-        with(sharedPrefs.edit()) {
-            putString("ip", ip.value!!)
-            apply()
-        }
-    }
+    val loading = MutableLiveData(true)
 }

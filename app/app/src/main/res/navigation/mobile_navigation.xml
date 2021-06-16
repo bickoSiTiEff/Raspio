@@ -26,11 +26,6 @@
             android:name="me.bickositieff.raspio.ui.preferences.PreferencesFragment"
             android:label="@string/title_settings"/>
     <fragment
-            android:id="@+id/navigation_server_select"
-            android:name="me.bickositieff.raspio.ui.serverSelect.ServerSelectFragment"
-            android:label="Select Server"
-            tools:layout="@layout/fragment_server_select"/>
-    <fragment
             android:id="@+id/navigation_song_select"
             android:name="me.bickositieff.raspio.ui.songSelect.SongSelectFragment"
             android:label="Add Song"
