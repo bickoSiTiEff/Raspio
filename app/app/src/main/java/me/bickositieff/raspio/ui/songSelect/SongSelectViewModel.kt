@@ -3,6 +3,7 @@ package me.bickositieff.raspio.ui.songSelect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.bickositieff.raspio.generated.api.LibraryApi
 import me.bickositieff.raspio.generated.api.PlaylistApi
@@ -14,7 +15,7 @@ class SongSelectViewModel : ViewModel() {
         emit(emptyList())
         while (true) {
             emit(LibraryApi.getSongs().body()!!.map { Song(it.path!!, it.title!!, it.artist!!, it.duration!!, null) })
-            kotlinx.coroutines.delay(1000)
+            delay(1000)
         }
     }
 
