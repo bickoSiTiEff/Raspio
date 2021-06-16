@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone='no'?><!--*-nxml-*-->
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+
+<!-- This file provides network discoverability of a Raspio instance -->
+
+<service-group>
+  <name replace-wildcards="yes">Raspio Server running on %h</name>
+  <service>
+    <type>_raspio._tcp</type>
+    <port>3000</port>
+  </service>
+</service-group>
