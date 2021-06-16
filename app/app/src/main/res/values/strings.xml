@@ -9,7 +9,7 @@
     <string name="stop_playback">Stop the Playback</string>
     <string name="play_pause_the_playback">Play/Pause the playback.</string>
     <string name="skip_song">Skip the song.</string>
-    <string name="watermark">From\nBickoSiTiEff</string>
+    <string name="watermark">From\nbickoSiTiEff</string>
     <string name="confirm">Confirm</string>
     <string name="raspi_ip">Raspi IP</string>
     <string name="enter_ip">Enter Raspi IP:</string>
@@ -21,4 +21,5 @@
     <string name="notification_toggle">notification_toggle</string>
     <string name="management_toggle">management_toggle</string>
     <string name="remove_button">remove_button</string>
+    <string name="server_timeout">Couldn\'t connect to server.</string>
 </resources>
