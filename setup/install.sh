@@ -13,10 +13,12 @@ if [ $# -gt 1 ]; then
 	exit
 fi
 
-if [ $# -eq 1 ]; then
-	BRANCH="$1"
-else
-	BRANCH="master"
+if [ -z "$BRANCH" ]; then
+	if [ $# -eq 1 ]; then
+		BRANCH="$1"
+	else
+		BRANCH="master"
+	fi
 fi
 
 function header() {
