@@ -164,8 +164,8 @@ exec > >(tee /raspio/install.log) 2>&1
 
 header
 createDirectories
+createVirtualAudio # has to happen before updateSystem because it would require a restart otherwise
 updateSystem
-createVirtualAudio
 installMPD
 installPiFmAdv
 installNodeJS
