@@ -11,6 +11,7 @@ This repository is part of a school project so you might find documents that are
 * `app` - Directory for the source code of the android app
 * `documents` - Consists of needed documents for this school project
   * `assets` - Images to be used elsewhere in this repository
+* `setup` - Directory for files and scripts that are used to install the Raspberry Pi server application
 * `server` - Directory for the source code of the Raspberry Pi server application
 
 ## Documents
@@ -23,9 +24,13 @@ These files consist of:
 
 ## Software Distribution
 
+### App
+
 Development previews of the app can currently be downloaded from our [F-Droid Repository](https://fdroid.bickositieff.me/repo/).
 
-In the future there will also be prebuilt SD-Card images as well as an install script for configuration of the Raspberry Pi server.
+### Server
+
+An install script is available in the [setup](setup) directory and in the future there will also be prebuilt SD-Card images.
 
 ## Documentation
 
