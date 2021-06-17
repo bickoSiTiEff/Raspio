@@ -50,9 +50,6 @@ function createDirectories() {
 	echo "Creating /raspio/playlists"
 	mkdir -p /raspio/playlists
 	chmod 777 /raspio/playlists
-	echo "Creating /raspio/server"
-	mkdir -p /raspio/server
-	chmod 777 /raspio/server
 	echo -e "\n${GREEN_ANSI} +\tCreated needed folders. ${BLANK_ANSI}"
 }
 
@@ -120,6 +117,7 @@ function installRaspioServer() {
 	rm -rf /raspio/repo
 	git clone -b $BRANCH --single-branch --depth 1 https://github.com/bickoSiTiEff/Raspio.git repo
 	pushd /raspio/repo/server
+	echo "This can take a few minutes..."
 	yarn
 	yarn build
 	popd
