@@ -5,10 +5,12 @@ on:
     paths:
       - app/**
       - api-specification.yaml
+      - .github/workflows/android.yml
   pull_request:
     paths:
       - app/**
       - api-specification.yaml
+      - .github/workflows/android.yml
   workflow_dispatch:
 
 jobs:

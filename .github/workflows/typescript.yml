@@ -5,10 +5,12 @@ on:
     paths:
       - server/**
       - api-specification.yaml
+      - .github/workflows/typescript.yml
   pull_request:
     paths:
       - server/**
       - api-specification.yaml
+      - .github/workflows/typescript.yml
   workflow_dispatch:
 
 jobs:
