@@ -5,6 +5,7 @@ on:
     branches: [ dev ]
     paths:
       - api-specification.yaml
+      - .github/workflows/openapi.yml
   workflow_dispatch:
 
 jobs:
