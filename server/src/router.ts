@@ -9,6 +9,7 @@ import mockPlaylist from "./mockRoutes/playlist";
 import mockPlayback from "./mockRoutes/playback";
 
 import transmission from "./routes/transmission";
+import ping from "./routes/ping";
 import library from "./routes/library";
 import playlist from "./routes/playlist";
 import playback from "./routes/playback";
@@ -26,6 +27,7 @@ export default async (): Promise<ExpressRouter> => {
 		router.use("/playback", mockPlayback);
 	} else {
 		router.use("/transmission", await transmission());
+		router.use("/ping", await ping());
 		router.use("/songs", await library());
 		router.use("/playlist", await playlist());
 		router.use("/playback", await playback());
