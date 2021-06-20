@@ -16,7 +16,7 @@ export default async (): Promise<ExpressRouter> => {
 			path: item.path,
 			title: item.title,
 			artist: item.artist || "Unknown",
-			duration: item.duration
+			duration: Math.round(item.duration as number)
 		} as API.Song));
 
 		res.send(currentPlaylist);
