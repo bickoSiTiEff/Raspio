@@ -49,7 +49,9 @@ class ServerSelectActivity : AppCompatActivity() {
                     finish()
                 } else {
                     // Connection failed
-                    Snackbar.make(findViewById(android.R.id.content), R.string.server_timeout, Snackbar.LENGTH_SHORT).show()
+                    Snackbar
+                        .make(findViewById(android.R.id.content), R.string.server_timeout, Snackbar.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
@@ -58,7 +60,11 @@ class ServerSelectActivity : AppCompatActivity() {
     private suspend fun checkExisting() {
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
         val address = sharedPrefs.getString("ip", null)
-            ?: return // No address saved
+
+        if (address == null) { // No address saved
+            viewModel.loading.value = false
+            return
+        }
 
         if (checkConnection(address)) {
             // Connection established
