@@ -16,43 +16,80 @@
             tools:context=".ui.playback.PlaybackFragment"
             android:id="@+id/frameLayout">
         <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_media_previous"
+                android:id="@+id/previousPlayback"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/stopPlayback"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/previous_playback"/>
+        <ImageButton
                 android:src="@android:drawable/ic_media_previous"
                 android:onClick="@{() -> viewModel.stopPlayback()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/stopPlayback"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="32dp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="16dp"
+                android:contentDescription="@string/stop_playback"
                 app:layout_constraintEnd_toStartOf="@+id/playPlayback"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/stop_playback"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/previousPlayback"/>
         <ImageButton
                 android:src="@{viewModel.playbackRunning ? @android:drawable/ic_media_pause : @android:drawable/ic_media_play}"
+                tools:src="@android:drawable/ic_media_pause"
                 android:onClick="@{() -> viewModel.playPause()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/playPlayback"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                app:layout_constraintStart_toEndOf="@+id/stopPlayback"
+                android:contentDescription="@string/play_pause_playback"
                 app:layout_constraintEnd_toStartOf="@+id/skipPlayback"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/play_pause_the_playback"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/stopPlayback"/>
         <ImageButton
                 android:src="@android:drawable/ic_media_next"
                 android:onClick="@{() -> viewModel.skipSong()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/skipPlayback"
+                android:contentDescription="@string/skip_song"
+                app:layout_constraintEnd_toStartOf="@+id/volumeMinus"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                app:layout_constraintStart_toEndOf="@+id/playPlayback"
-                android:layout_marginEnd="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/playPlayback"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/button_onoff_indicator_off"
+                android:id="@+id/volumeMinus"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/skipPlayback"
+                android:contentDescription="@string/decrease_volume"
+                app:layout_constraintEnd_toStartOf="@+id/textVolume"
+        />
+        <TextView
+                android:text="%"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textVolume"
+                app:layout_constraintStart_toEndOf="@+id/volumeMinus"
+                app:layout_constraintEnd_toStartOf="@+id/volumePlus"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="20sp"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/button_onoff_indicator_on"
+                android:id="@+id/volumePlus"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:contentDescription="@string/skip_song"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/increase_volume"
+                app:layout_constraintStart_toEndOf="@+id/textVolume"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
