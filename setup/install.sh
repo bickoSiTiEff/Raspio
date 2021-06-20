@@ -82,16 +82,16 @@ function installMPD() {
 function installPiFmAdv() {
 	echo -e "--------------------------------\n${GREEN_ANSI} +\tInstalling PiFmAdv... ${BLANK_ANSI}\n"
 	apt-get install libsndfile1-dev git -y
-	pushd /tmp
+	pushd /tmp || exit
 	git clone https://github.com/Miegl/PiFmAdv.git
-	pushd /tmp/PiFmAdv/src
+	pushd /tmp/PiFmAdv/src || exit
 	make clean
 	make
 	mv pi_fm_adv /raspio/pi_fm_adv
 	chmod 777 /raspio/pi_fm_adv
 	rm -rf /tmp/PiFmAdv
-	popd
-	popd
+	popd || exit
+	popd || exit
 	echo -e "\n${GREEN_ANSI} +\tInstalled PiFmAdv. ${BLANK_ANSI}"
 }
 
@@ -113,15 +113,15 @@ function installYarn() {
 
 function installRaspioServer() {
 	echo -e "--------------------------------\n${GREEN_ANSI} +\tInstalling Raspio Server... ${BLANK_ANSI}\n"
-	pushd /raspio
+	pushd /raspio || exit
 	rm -rf /raspio/repo
 	git clone -b $BRANCH --single-branch --depth 1 https://github.com/bickoSiTiEff/Raspio.git repo
-	pushd /raspio/repo/server
+	pushd /raspio/repo/server || exit
 	echo "This can take a few minutes..."
 	yarn
 	yarn build
-	popd
-	popd
+	popd || exit
+	popd || exit
 	echo -e "\n${GREEN_ANSI} +\tInstalled Raspio Server. ${BLANK_ANSI}"
 }
 
