@@ -23,6 +23,6 @@
     <string name="remove_button">remove_button</string>
     <string name="server_timeout">Couldn\'t connect to server.</string>
     <string name="increase_volume">Increase volume</string>
-    <string name="decrease_volume">Decrease Volume</string>
+    <string name="decrease_volume">Decrease volume</string>
     <string name="previous_playback">Plays previous song or jumps to the start of the current one.</string>
 </resources>
