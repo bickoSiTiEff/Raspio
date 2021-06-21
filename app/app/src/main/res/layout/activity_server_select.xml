@@ -84,5 +84,14 @@
                 android:visibility="@{viewModel.loading ? View.VISIBLE : View.INVISIBLE}"
                 tools:visibility="invisible"/>
 
+        <Button
+                android:text="@string/scan_for_wifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/scanwifi_button"
+                app:layout_constraintTop_toBottomOf="@+id/serverSelectConfirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
