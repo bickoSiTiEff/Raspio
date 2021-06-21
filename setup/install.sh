@@ -95,6 +95,21 @@ function installPiFmAdv() {
 	echo -e "\n${GREEN_ANSI} +\tInstalled PiFmAdv. ${BLANK_ANSI}"
 }
 
+function installFMTransmitter() {
+	echo -e "--------------------------------\n${GREEN_ANSI} +\tInstalling FMTransmitter (temporary replacement for PiFmAdv)... ${BLANK_ANSI}\n"
+  apt-get install make build-essential git -y
+  pushd /tmp || exit
+  git clone https://github.com/markondej/fm_transmitter
+  pushd /tmp/fm_transmitter || exit
+  make
+  mv fm_transmitter /raspio/fm_transmitter
+  chmod 777 /raspio/fm_transmitter
+  rm -rf /tmp/fm_transmitter
+  popd || exit
+  popd || exit
+	echo -e "\n${GREEN_ANSI} +\tInstalled FMTransmitter. ${BLANK_ANSI}"
+}
+
 function installNodeJS() {
 	echo -e "--------------------------------\n${GREEN_ANSI} +\tInstalling Node.js... (external script)${BLANK_ANSI}\n"
 	curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
@@ -165,7 +180,8 @@ createDirectories
 createVirtualAudio # has to happen before updateSystem because it would require a restart otherwise
 updateSystem
 installMPD
-installPiFmAdv
+#installPiFmAdv
+installFMTransmitter
 installNodeJS
 installYarn
 installRaspioServer
