@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            app:srcCompat="@android:drawable/ic_input_add"
+            app:srcCompat="@drawable/outline_playlist_add_black_24"
             android:id="@+id/playlist_add_fab"
             app:layout_constraintEnd_toEndOf="@+id/playlist_recycler"
             app:layout_constraintBottom_toBottomOf="@+id/playlist_recycler"

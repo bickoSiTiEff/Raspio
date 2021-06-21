@@ -10,7 +10,7 @@ import kotlin.math.roundToInt
 class PlaybackViewModel : ViewModel() {
     val playbackRunning = MutableLiveData(false)
     val playbackVolume = MutableLiveData<Int>().apply {
-        viewModelScope.launch { value = PlaybackApi.getPlayback().body()!!.volume!!.roundToInt() }
+//        viewModelScope.launch { value = PlaybackApi.getPlayback().body()!!.volume!!.roundToInt() }
     }
 
 
@@ -39,14 +39,14 @@ class PlaybackViewModel : ViewModel() {
     fun increaseVolume() {
         if (playbackVolume.value != 100) {
             playbackVolume.value = playbackVolume.value!! + 1
-            viewModelScope.launch { PlaybackApi.postPlaybackVolume(playbackVolume.value!!) }
+//            viewModelScope.launch { PlaybackApi.postPlaybackVolume(playbackVolume.value!!) }
         }
     }
 
     fun decreaseVolume() {
         if (playbackVolume.value != 0) {
             playbackVolume.value = playbackVolume.value!! - 1
-            viewModelScope.launch { PlaybackApi.postPlaybackVolume(playbackVolume.value!!) }
+//            viewModelScope.launch { PlaybackApi.postPlaybackVolume(playbackVolume.value!!) }
         }
     }
 }
