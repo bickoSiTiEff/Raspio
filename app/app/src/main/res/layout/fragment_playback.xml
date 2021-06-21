@@ -21,7 +21,7 @@
                 android:onClick="@{() -> viewModel.previousSong()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/ic_media_previous"
+                app:srcCompat="@drawable/outline_skip_previous_black_24"
                 android:id="@+id/previousPlayback"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/stopPlayback"
@@ -30,7 +30,7 @@
                 android:contentDescription="@string/previous_playback"/>
 
         <ImageButton
-                android:src="@android:drawable/ic_media_previous"
+                android:src="@drawable/outline_stop_black_24"
                 android:onClick="@{() -> viewModel.stopPlayback()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,8 +42,8 @@
                 app:layout_constraintStart_toEndOf="@+id/previousPlayback"/>
 
         <ImageButton
-                android:src="@{viewModel.playbackRunning ? @android:drawable/ic_media_pause : @android:drawable/ic_media_play}"
-                tools:src="@android:drawable/ic_media_pause"
+                android:src="@{viewModel.playbackRunning ? @drawable/outline_pause_black_24 : @drawable/outline_play_arrow_black_24}"
+                tools:src="@drawable/outline_pause_black_24"
                 android:onClick="@{() -> viewModel.playPause()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 app:layout_constraintStart_toEndOf="@+id/stopPlayback"/>
 
         <ImageButton
-                android:src="@android:drawable/ic_media_next"
+                android:src="@drawable/outline_skip_next_black_24"
                 android:onClick="@{() -> viewModel.skipSong()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> viewModel.decreaseVolume()}"
-                app:srcCompat="@android:drawable/button_onoff_indicator_off"
+                app:srcCompat="@drawable/outline_volume_down_black_24"
                 android:id="@+id/volumeMinus"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -95,7 +95,7 @@
                 android:onClick="@{() -> viewModel.increaseVolume()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/button_onoff_indicator_on"
+                app:srcCompat="@drawable/outline_volume_up_black_24"
                 android:id="@+id/volumePlus"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
