@@ -16,6 +16,7 @@
             tools:context=".ui.playback.PlaybackFragment"
             android:id="@+id/frameLayout">
         <ImageButton
+                android:onClick="@{() -> viewModel.previousSong()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@android:drawable/ic_media_previous"
@@ -62,6 +63,7 @@
         <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.decreaseVolume()}"
                 app:srcCompat="@android:drawable/button_onoff_indicator_off"
                 android:id="@+id/volumeMinus"
                 app:layout_constraintTop_toTopOf="parent"
@@ -71,7 +73,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/textVolume"
         />
         <TextView
-                android:text="%"
+                android:text="@{viewModel.playbackVolume.toString() + '%'}"
+                tools:text="50%"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textVolume"
@@ -81,6 +84,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:textSize="20sp"/>
         <ImageButton
+                android:onClick="@{() -> viewModel.increaseVolume()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@android:drawable/button_onoff_indicator_on"
