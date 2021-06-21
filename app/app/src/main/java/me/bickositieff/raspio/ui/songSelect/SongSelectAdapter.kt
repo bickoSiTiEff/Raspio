@@ -30,7 +30,7 @@ class SongSelectAdapter(playlist: List<Song>, val viewModel: SongSelectViewModel
         val binding: SongItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.root.setOnLongClickListener { v ->
+            binding.root.setOnClickListener { v ->
                 val menu = PopupMenu(binding.root.context, v)
                 menu.inflate(R.menu.popup_select_song)
                 menu.setOnMenuItemClickListener { item ->
@@ -47,7 +47,6 @@ class SongSelectAdapter(playlist: List<Song>, val viewModel: SongSelectViewModel
                     true
                 }
                 menu.show()
-                true
             }
 
         }
