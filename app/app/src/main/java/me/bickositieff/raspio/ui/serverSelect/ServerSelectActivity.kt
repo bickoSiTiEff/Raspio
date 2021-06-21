@@ -17,6 +17,7 @@ import me.bickositieff.raspio.databinding.ActivityServerSelectBinding
 import me.bickositieff.raspio.generated.ApiHolder
 import me.bickositieff.raspio.generated.api.NetworkApi
 import java.net.ConnectException
+import java.net.SocketTimeoutException
 
 class ServerSelectActivity : AppCompatActivity() {
     private val tag = "ServerSelectActivity"
@@ -88,8 +89,11 @@ class ServerSelectActivity : AppCompatActivity() {
             NetworkApi.getPing().isSuccessful.also {
                 Log.i(tag, "Connection to $ip success: $it")
             }
-        } catch (e: ConnectException) {
+        } catch (e: SocketTimeoutException) {
             Log.i(tag, "Connection to $ip timed out.")
+            false
+        } catch (e: ConnectException) {
+            Log.i(tag, "Connection to $ip could not be established.")
             false
         }.also {
             viewModel.loading.value = false
