@@ -18,7 +18,7 @@
 
         <ImageView
                 android:id="@+id/song_image"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/ic_bicko"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:contentDescription="@string/image_description"
