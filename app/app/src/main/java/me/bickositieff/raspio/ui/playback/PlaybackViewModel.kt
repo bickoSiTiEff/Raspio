@@ -5,12 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import me.bickositieff.raspio.generated.api.PlaybackApi
+import kotlin.math.roundToInt
 
 class PlaybackViewModel : ViewModel() {
     val playbackRunning = MutableLiveData(false)
     val playbackVolume = MutableLiveData<Int>().apply {
         viewModelScope.launch { PlaybackApi.postPlaybackVolume(50) }
-        value = 50
+        var volume = 0
+        viewModelScope.launch { volume = PlaybackApi.getPlayback().body()!!.volume!!.roundToInt()}
+        value = volume
     }
 
 
