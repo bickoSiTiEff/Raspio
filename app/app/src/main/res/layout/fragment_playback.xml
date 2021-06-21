@@ -5,6 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
                 name="viewModel"
                 type="me.bickositieff.raspio.ui.playback.PlaybackViewModel"/>
@@ -15,6 +16,7 @@
             android:layout_height="wrap_content"
             tools:context=".ui.playback.PlaybackFragment"
             android:id="@+id/frameLayout">
+
         <ImageButton
                 android:onClick="@{() -> viewModel.previousSong()}"
                 android:layout_width="wrap_content"
@@ -26,6 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:contentDescription="@string/previous_playback"/>
+
         <ImageButton
                 android:src="@android:drawable/ic_media_previous"
                 android:onClick="@{() -> viewModel.stopPlayback()}"
@@ -37,6 +40,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/previousPlayback"/>
+
         <ImageButton
                 android:src="@{viewModel.playbackRunning ? @android:drawable/ic_media_pause : @android:drawable/ic_media_play}"
                 tools:src="@android:drawable/ic_media_pause"
@@ -49,6 +53,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/stopPlayback"/>
+
         <ImageButton
                 android:src="@android:drawable/ic_media_next"
                 android:onClick="@{() -> viewModel.skipSong()}"
@@ -60,6 +65,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/playPlayback"/>
+
         <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,7 +77,8 @@
                 app:layout_constraintStart_toEndOf="@+id/skipPlayback"
                 android:contentDescription="@string/decrease_volume"
                 app:layout_constraintEnd_toStartOf="@+id/textVolume"
-        />
+                />
+
         <TextView
                 android:text="@{viewModel.playbackVolume.toString() + '%'}"
                 tools:text="50%"
@@ -83,6 +90,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:textSize="20sp"/>
+
         <ImageButton
                 android:onClick="@{() -> viewModel.increaseVolume()}"
                 android:layout_width="wrap_content"
