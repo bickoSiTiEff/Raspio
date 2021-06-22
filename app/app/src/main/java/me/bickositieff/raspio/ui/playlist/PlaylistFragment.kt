@@ -27,7 +27,7 @@ class PlaylistFragment : Fragment() {
         val fab = root.findViewById<FloatingActionButton>(R.id.playlist_add_fab)
         fab.setOnClickListener { findNavController().navigate(R.id.navigation_song_select) }
 
-        mAdapter = SongAdapter(playlistViewModel.playlist.value ?: emptyList())
+        mAdapter = SongAdapter(playlistViewModel.playlist.value ?: emptyList(), playlistViewModel)
         recyclerView.adapter = mAdapter
 
         playlistViewModel.playlist.observe(viewLifecycleOwner){
