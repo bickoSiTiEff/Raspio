@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.bickositieff.raspio.generated.api.LibraryApi
+import me.bickositieff.raspio.generated.api.PlaybackApi
 import me.bickositieff.raspio.generated.api.PlaylistApi
 import me.bickositieff.raspio.generated.models.POSTPlaylistBody
 import me.bickositieff.raspio.ui.models.Song
@@ -21,7 +22,7 @@ class SongSelectViewModel : ViewModel() {
 
     fun addAsNext(song: Song) {
         viewModelScope.launch {
-            PlaylistApi.postPlaylist(POSTPlaylistBody(song.path, 0))
+            PlaylistApi.postPlaylist(POSTPlaylistBody(song.path, PlaybackApi.getPlayback().body()!!.currentlyPlayingIndex!!.toInt() + 1))
         }
     }
 
