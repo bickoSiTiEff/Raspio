@@ -14,10 +14,11 @@ class SongAdapter(
 ) :
     RecyclerView.Adapter<SongAdapter.ViewHolder>() {
     var playlist: List<Song> = playlist
-    set(value){
-        field = value
-        notifyDataSetChanged()
-    }
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
     init {
         setHasStableIds(true)
     }
