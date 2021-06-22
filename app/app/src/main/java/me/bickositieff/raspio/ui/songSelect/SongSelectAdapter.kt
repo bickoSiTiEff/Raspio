@@ -16,6 +16,14 @@ class SongSelectAdapter(playlist: List<Song>, val viewModel: SongSelectViewModel
             notifyDataSetChanged()
         }
 
+    init {
+        setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return playlist[position].hashCode().toLong()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         SongItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
