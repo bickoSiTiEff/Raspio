@@ -17,7 +17,33 @@
             tools:context=".ui.serverSelect.ServerSelectActivity"
             >
 
-        <TextView
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/serverSelectIPInput"
+                android:hint="@string/raspi_ip"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/serverSelectConfirm"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="64dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                android:visibility="@{viewModel.loading ? View.INVISIBLE : View.VISIBLE}">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/serverSelectIPEditText"
+                    android:text="@={viewModel.ip}"
+                    />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!--<TextView
                 android:text="@string/enter_ip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -26,9 +52,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="32dp"/>
+                android:layout_marginTop="32dp"/>-->
 
-        <EditText
+        <!--<EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
@@ -41,18 +67,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="16dp"
                 android:importantForAutofill="no"
-                tools:ignore="LabelFor"/>
+                tools:ignore="LabelFor"/>-->
 
-        <Button
+        <com.google.android.material.button.MaterialButton
                 android:text="@string/confirm"
                 android:enabled="@{viewModel.valid}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/serverSelectConfirm"
                 android:visibility="@{viewModel.loading ? View.INVISIBLE : View.VISIBLE}"
-                app:layout_constraintTop_toBottomOf="@+id/serverSelectIP"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/serverSelectIPInput"
                 android:layout_marginTop="16dp"/>
 
         <TextView
@@ -66,7 +92,7 @@
                 android:textAlignment="center"
                 android:id="@+id/serverSelectBranding"/>
 
-        <CheckBox
+        <!--<CheckBox
                 android:enabled="false"
                 android:checked="@{viewModel.valid}"
                 android:layout_width="wrap_content"
@@ -77,19 +103,6 @@
                 app:layout_constraintStart_toEndOf="@+id/serverSelectIP"
                 app:layout_constraintBottom_toBottomOf="@+id/serverSelectIP"
                 app:layout_constraintTop_toTopOf="@+id/serverSelectIP"/>
-
-        <ProgressBar
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:id="@+id/serverSelectLoading"
-                android:indeterminate="true"
-                app:layout_constraintStart_toStartOf="@+id/serverSelectIP"
-                app:layout_constraintEnd_toEndOf="@+id/serverSelectIP"
-                app:layout_constraintBottom_toBottomOf="@+id/serverSelectIP"
-                app:layout_constraintTop_toTopOf="@+id/serverSelectIP"
-                android:visibility="@{viewModel.loading ? View.VISIBLE : View.INVISIBLE}"
-                tools:visibility="invisible"/>
-
+-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

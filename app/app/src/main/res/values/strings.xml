@@ -29,4 +29,5 @@
     <string name="move_down">Move down</string>
     <string name="set_as_next">Set as next</string>
     <string name="remove">Remove</string>
+    <string name="shr_error_ip">Could not connect</string>
 </resources>
