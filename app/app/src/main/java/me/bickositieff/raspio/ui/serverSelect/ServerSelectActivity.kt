@@ -33,13 +33,26 @@ class ServerSelectActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+/*
+        view.next_button.setOnClickListener({
+            if (!isPasswordValid(password_edit_text.text!!)) {
+                password_text_input.error = getString(R.string.shr_error_password)
+            } else {
+                // Clear the error.
+                password_text_input.error = null
+            }
+        })
+*/
+
+
         binding.serverSelectConfirm.setOnClickListener {
             lifecycleScope.launch() {
-                val ip = binding.serverSelectIP.text.toString()
+                val ip = binding.serverSelectIPEditText.text.toString()
 
                 val success = checkConnection(ip)
 
                 if (success) {
+                    binding.serverSelectIPInput.error = null
                     // Connection established
                     val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this@ServerSelectActivity)
                     with(sharedPrefs.edit()) {
@@ -50,6 +63,7 @@ class ServerSelectActivity : AppCompatActivity() {
                     finish()
                 } else {
                     // Connection failed
+                    binding.serverSelectIPInput.error = getString(R.string.shr_error_ip)
                     Snackbar
                         .make(findViewById(android.R.id.content), R.string.server_timeout, Snackbar.LENGTH_SHORT)
                         .show()
