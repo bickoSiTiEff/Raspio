@@ -8,10 +8,6 @@ import me.bickositieff.raspio.generated.api.PlaybackApi
 
 class PlaybackViewModel : ViewModel() {
     val playbackRunning = MutableLiveData(false)
-    val playbackVolume = MutableLiveData<Int>().apply {
-        value = 50
-//        viewModelScope.launch { value = PlaybackApi.getPlayback().body()!!.volume!!.roundToInt() }
-    }
 
 
     fun playPause() {
@@ -30,23 +26,5 @@ class PlaybackViewModel : ViewModel() {
 
     fun previousSong() {
         viewModelScope.launch { PlaybackApi.postPlaybackPrevious() }
-    }
-
-    fun stopPlayback() {
-        viewModelScope.launch { PlaybackApi.postPlaybackStop() }
-    }
-
-    fun increaseVolume() {
-        if (playbackVolume.value != 100) {
-            playbackVolume.value = playbackVolume.value!! + 1
-//            viewModelScope.launch { PlaybackApi.postPlaybackVolume(playbackVolume.value!!) }
-        }
-    }
-
-    fun decreaseVolume() {
-        if (playbackVolume.value != 0) {
-            playbackVolume.value = playbackVolume.value!! - 1
-//            viewModelScope.launch { PlaybackApi.postPlaybackVolume(playbackVolume.value!!) }
-        }
     }
 }

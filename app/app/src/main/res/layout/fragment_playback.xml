@@ -19,31 +19,23 @@
 
         <ImageButton
                 android:onClick="@{() -> viewModel.previousSong()}"
+                android:background="?attr/selectableItemBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/outline_skip_previous_black_24"
+                app:srcCompat="@drawable/outline_skip_previous_black_48"
                 android:id="@+id/previousPlayback"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/stopPlayback"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:contentDescription="@string/previous_playback"/>
-
-        <ImageButton
-                android:src="@drawable/outline_stop_black_24"
-                android:onClick="@{() -> viewModel.stopPlayback()}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/stopPlayback"
-                android:contentDescription="@string/stop_playback"
                 app:layout_constraintEnd_toStartOf="@+id/playPlayback"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/previousPlayback"/>
+                android:contentDescription="@string/previous_playback"
+                android:layout_marginStart="32dp"
+                android:tint="@color/design_default_color_primary"/>
 
         <ImageButton
-                android:src="@{viewModel.playbackRunning ? @drawable/outline_pause_black_24 : @drawable/outline_play_arrow_black_24}"
-                tools:src="@drawable/outline_pause_black_24"
+                android:src="@{viewModel.playbackRunning ? @drawable/outline_pause_black_48 : @drawable/outline_play_arrow_black_48}"
+                tools:src="@drawable/outline_pause_black_48"
+                android:background="?attr/selectableItemBackground"
                 android:onClick="@{() -> viewModel.playPause()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,56 +44,23 @@
                 app:layout_constraintEnd_toStartOf="@+id/skipPlayback"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/stopPlayback"/>
+                app:layout_constraintStart_toEndOf="@+id/previousPlayback"
+                android:tint="@color/design_default_color_primary_variant"/>
 
         <ImageButton
-                android:src="@drawable/outline_skip_next_black_24"
+                android:src="@drawable/outline_skip_next_black_48"
                 android:onClick="@{() -> viewModel.skipSong()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/skipPlayback"
                 android:contentDescription="@string/skip_song"
-                app:layout_constraintEnd_toStartOf="@+id/volumeMinus"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/playPlayback"/>
-
-        <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.decreaseVolume()}"
-                app:srcCompat="@drawable/outline_volume_down_black_24"
-                android:id="@+id/volumeMinus"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/skipPlayback"
-                android:contentDescription="@string/decrease_volume"
-                app:layout_constraintEnd_toStartOf="@+id/textVolume"
-                />
-
-        <TextView
-                android:text="@{viewModel.playbackVolume.toString() + '%'}"
-                tools:text="50%"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textVolume"
-                app:layout_constraintStart_toEndOf="@+id/volumeMinus"
-                app:layout_constraintEnd_toStartOf="@+id/volumePlus"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:textSize="20sp"/>
-
-        <ImageButton
-                android:onClick="@{() -> viewModel.increaseVolume()}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/outline_volume_up_black_24"
-                android:id="@+id/volumePlus"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:contentDescription="@string/increase_volume"
-                app:layout_constraintStart_toEndOf="@+id/textVolume"/>
+                app:layout_constraintStart_toEndOf="@+id/playPlayback"
+                android:background="?attr/selectableItemBackground"
+                android:layout_marginEnd="32dp"
+                android:tint="@color/design_default_color_primary"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
