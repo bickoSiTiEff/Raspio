@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import me.bickositieff.raspio.MainActivity
 import me.bickositieff.raspio.R
@@ -27,23 +26,11 @@ class ServerSelectActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launchWhenCreated { checkExisting() }
-
         val binding: ActivityServerSelectBinding = DataBindingUtil.setContentView(this, R.layout.activity_server_select)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-/*
-        view.next_button.setOnClickListener({
-            if (!isPasswordValid(password_edit_text.text!!)) {
-                password_text_input.error = getString(R.string.shr_error_password)
-            } else {
-                // Clear the error.
-                password_text_input.error = null
-            }
-        })
-*/
-
+        lifecycleScope.launchWhenCreated { checkExisting(binding) }
 
         binding.serverSelectConfirm.setOnClickListener {
             lifecycleScope.launch() {
@@ -64,15 +51,12 @@ class ServerSelectActivity : AppCompatActivity() {
                 } else {
                     // Connection failed
                     binding.serverSelectIPInput.error = getString(R.string.shr_error_ip)
-                    Snackbar
-                        .make(findViewById(android.R.id.content), R.string.server_timeout, Snackbar.LENGTH_SHORT)
-                        .show()
                 }
             }
         }
     }
 
-    private suspend fun checkExisting() {
+    private suspend fun checkExisting(binding: ActivityServerSelectBinding) {
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
         val address = sharedPrefs.getString("ip", null)
 
@@ -87,7 +71,7 @@ class ServerSelectActivity : AppCompatActivity() {
             finish()
         } else {
             // Connection failed
-            Snackbar.make(findViewById(android.R.id.content), R.string.server_timeout, Snackbar.LENGTH_SHORT).show()
+            binding.serverSelectIPInput.error = getString(R.string.shr_error_ip)
             return
         }
     }
