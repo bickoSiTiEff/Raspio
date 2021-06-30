@@ -1,22 +1,41 @@
 package me.bickositieff.raspio.ui.playback
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.bickositieff.raspio.generated.api.PlaybackApi
+import me.bickositieff.raspio.generated.models.GETPlaybackResponse
+import me.bickositieff.raspio.generated.models.GETPlaybackResponseState
 
 class PlaybackViewModel : ViewModel() {
-    val playbackRunning = MutableLiveData(false)
+    val playbackState = liveData {
+        emit(
+            GETPlaybackResponse(
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                GETPlaybackResponseState.STOP,
+                null,
+                null
+            )
+        )
+        while(true) {
+            emit(PlaybackApi.getPlayback().body()!!)
+            delay(5000)
+        }
+    }
+
+    val playbackRunning = playbackState.map { it.state }
 
 
     fun playPause() {
-        if (playbackRunning.value!!) {
+        if (playbackRunning.value == GETPlaybackResponseState.PLAY) {
             viewModelScope.launch { PlaybackApi.postPlaybackPause() }
-            playbackRunning.value = false
         } else {
             viewModelScope.launch { PlaybackApi.postPlaybackPlay() }
-            playbackRunning.value = true
         }
     }
 

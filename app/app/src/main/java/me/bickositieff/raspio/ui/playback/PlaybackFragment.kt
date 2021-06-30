@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import me.bickositieff.raspio.databinding.FragmentPlaybackBinding
 
 class PlaybackFragment : Fragment() {
 
-    private val viewModel: PlaybackViewModel by viewModels()
+    private val viewModel: PlaybackViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
