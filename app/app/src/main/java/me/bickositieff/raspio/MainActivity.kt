@@ -1,23 +1,46 @@
 package me.bickositieff.raspio
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.content.getSystemService
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
+import androidx.media.session.MediaButtonReceiver
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import me.bickositieff.raspio.generated.models.GETPlaybackResponse
+import me.bickositieff.raspio.generated.models.GETPlaybackResponseState
+import me.bickositieff.raspio.ui.models.Song
 import me.bickositieff.raspio.ui.playback.PlaybackViewModel
+import me.bickositieff.raspio.ui.playlist.PlaylistViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private val playback: PlaybackViewModel by viewModels()
+    private val playlist: PlaylistViewModel by viewModels()
 
     private lateinit var mediaSession: MediaSessionCompat
+
+    private val mediaSessionSupportedActions = PlaybackStateCompat.ACTION_PLAY or
+            PlaybackStateCompat.ACTION_PAUSE or
+            PlaybackStateCompat.ACTION_STOP or
+            PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS or
+            PlaybackStateCompat.ACTION_SKIP_TO_NEXT or
+            PlaybackStateCompat.ACTION_SEEK_TO or
+            PlaybackStateCompat.ACTION_SET_SHUFFLE_MODE or
+            PlaybackStateCompat.ACTION_SET_REPEAT_MODE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,28 +58,102 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        setupMediaSession()
+        sendMediaNotification()
+    }
+
+    private fun setupMediaSession() {
         mediaSession = MediaSessionCompat(this, "RaspioMediaSession").apply {
             setMediaButtonReceiver(null)
 
-            setPlaybackState(
-                PlaybackStateCompat.Builder()
-                    .setActions(
-                        PlaybackStateCompat.ACTION_PLAY or
-                                PlaybackStateCompat.ACTION_PAUSE or
-                                PlaybackStateCompat.ACTION_STOP or
-                                PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS or
-                                PlaybackStateCompat.ACTION_SKIP_TO_NEXT or
-                                PlaybackStateCompat.ACTION_SEEK_TO or
-                                PlaybackStateCompat.ACTION_SET_SHUFFLE_MODE or
-                                PlaybackStateCompat.ACTION_SET_REPEAT_MODE
-                    )
-                    .build()
-            )
+            setPlaybackState(createPlaybackState(playback.playbackState.value))
 
             setCallback(MediaCallback())
         }
 
+        playback.playbackState.observe(this) {
+            mediaSession.setPlaybackState(createPlaybackState(it))
+        }
+
+        playback.playbackState.map { it.currentlyPlayingIndex }.switchMap { position ->
+            return@switchMap playlist.playlist.map {
+                if (position == null) return@map null
+                else it.getOrNull(position.toInt())
+            }
+        }.observe(this) {
+            mediaSession.setMetadata(createMetadataState(it))
+        }
+
         mediaSession.isActive = true
+    }
+
+    private fun createPlaybackState(state: GETPlaybackResponse?): PlaybackStateCompat {
+        val currentPlaybackState = when (state?.state) {
+            GETPlaybackResponseState.PLAY -> PlaybackStateCompat.STATE_PLAYING
+            GETPlaybackResponseState.STOP -> PlaybackStateCompat.STATE_STOPPED
+            GETPlaybackResponseState.PAUSE -> PlaybackStateCompat.STATE_PAUSED
+            else -> null
+        }
+        val builder = PlaybackStateCompat.Builder()
+            .setActions(mediaSessionSupportedActions)
+
+        if (currentPlaybackState != null && state != null)
+            builder.setState(
+                currentPlaybackState,
+                state.elapsed?.toLong()?.times(1000) ?: PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN,
+                1.0f
+            )
+
+        return builder.build()
+    }
+
+    private fun createMetadataState(song: Song?): MediaMetadataCompat? = song?.run {
+        MediaMetadataCompat.Builder()
+            .putString(MediaMetadataCompat.METADATA_KEY_TITLE, title)
+            .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, artist)
+            .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, path)
+            .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, (duration * 1000).toLong())
+            .build()
+    }
+
+    private fun sendMediaNotification() {
+        val notificationManager = getSystemService<NotificationManager>()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "raspio-media-notification",
+                getString(R.string.media_notification_channel_description),
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            channel.description = getString(R.string.media_notification_channel_description)
+            notificationManager?.createNotificationChannel(channel)
+        }
+
+        val notification = NotificationCompat.Builder(this, "raspio-media-notification").apply {
+            setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+
+            setSmallIcon(R.drawable.outline_radio_24)
+
+            addAction(
+                NotificationCompat.Action(
+                    R.drawable.outline_pause_24,
+                    getString(R.string.play_pause_playback),
+                    MediaButtonReceiver.buildMediaButtonPendingIntent(
+                        this@MainActivity,
+                        PlaybackStateCompat.ACTION_PLAY_PAUSE
+                    )
+                )
+            )
+
+            setStyle(
+                androidx.media.app.NotificationCompat.MediaStyle()
+                    .setMediaSession(mediaSession.sessionToken)
+                    .setShowActionsInCompactView(0)
+            )
+        }.build()
+
+        val playbackNotificationID = 18769
+        notificationManager?.notify(playbackNotificationID, notification)
     }
 
     inner class MediaCallback : MediaSessionCompat.Callback() {

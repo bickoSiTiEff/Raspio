@@ -29,6 +29,7 @@
     <string name="move_down">Move down</string>
     <string name="set_as_next">Set as next</string>
     <string name="remove">Remove</string>
+    <string name="media_notification_channel_description">Playback notifications</string>
     <string name="shr_error_ip">Could not connect to address</string>
     <string name="scan">Scan</string>
     <string name="click_icon_helper">Click the icon to scan for Raspi in current network.</string>
