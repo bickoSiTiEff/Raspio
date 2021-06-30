@@ -48,6 +48,8 @@ export default async (): Promise<ExpressRouter> => {
 		await writeFile(fileName, req.body);
 
 		console.log(`Saved ${fileName}.`);
+
+		res.status(201).send();
 	});
 
 	return library;
