@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import me.bickositieff.raspio.R
 
 class PlaylistFragment : Fragment() {
 
-    private val playlistViewModel: PlaylistViewModel by viewModels()
+    private val playlistViewModel: PlaylistViewModel by activityViewModels()
     private lateinit var mAdapter: SongAdapter
 
     override fun onCreateView(
