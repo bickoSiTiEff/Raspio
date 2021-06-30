@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="me.bickositieff.raspio.generated.models.GETPlaybackResponseState"/>
+
         <variable
                 name="viewModel"
                 type="me.bickositieff.raspio.ui.playback.PlaybackViewModel"/>
@@ -33,7 +35,7 @@
                 android:tint="@color/bicko_horizon"/>
 
         <ImageButton
-                android:src="@{viewModel.playbackRunning ? @drawable/outline_pause_black_48 : @drawable/outline_play_arrow_black_48}"
+                android:src="@{viewModel.playbackRunning == GETPlaybackResponseState.PLAY ? @drawable/outline_pause_black_48 : @drawable/outline_play_arrow_black_48}"
                 tools:src="@drawable/outline_pause_black_48"
                 android:background="?attr/selectableItemBackground"
                 android:onClick="@{() -> viewModel.playPause()}"
