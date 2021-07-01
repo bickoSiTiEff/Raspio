@@ -86,10 +86,10 @@ class ServerSelectActivity : AppCompatActivity() {
                     override fun onServiceFound(service: NsdServiceInfo) {
                         Log.d(TAG, "Service discovery success$service")
                         when {
-                            service.serviceType != "_raspio._tcp" ->
+                            service.serviceType != "_raspio._tcp." ->
                                 Log.d(TAG, "Unknown Service Type: ${service.serviceType}")
 
-                            service.serviceType == "_raspio._tcp" -> {
+                            service.serviceType == "_raspio._tcp." -> {
                                 nsdManager.stopServiceDiscovery(this)
                                 nsdManager.resolveService(service, resolveListener)
                             }
