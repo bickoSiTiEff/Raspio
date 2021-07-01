@@ -1,5 +1,6 @@
 package me.bickositieff.raspio.ui.serverSelect
 
+import android.Manifest
 import android.app.Activity
 import android.companion.AssociationRequest
 import android.companion.CompanionDeviceManager
@@ -7,6 +8,7 @@ import android.companion.WifiDeviceFilter
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
+import android.content.pm.PackageManager
 import android.net.wifi.ScanResult
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
@@ -22,6 +24,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import com.thanosfisherman.wifiutils.WifiUtils
+import com.thanosfisherman.wifiutils.wifiConnect.ConnectionErrorCode
+import com.thanosfisherman.wifiutils.wifiConnect.ConnectionSuccessListener
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.bickositieff.raspio.MainActivity
@@ -35,7 +40,7 @@ import java.net.SocketTimeoutException
 
 class ServerSelectActivity : AppCompatActivity() {
     private val tag = "ServerSelectActivity"
-
+    private val RQ_ACCESS_FINE_LOCATION = 420
     private val viewModel: ServerSelectViewModel by viewModels()
 
     val temp = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { activityResult ->
@@ -45,10 +50,34 @@ class ServerSelectActivity : AppCompatActivity() {
             Activity.RESULT_OK -> {
                 val deviceToPair: ScanResult? = data?.getParcelableExtra(CompanionDeviceManager.EXTRA_DEVICE)
                 deviceToPair?.let { device ->
-                    Toast.makeText(this, "Connected to WIFI", Toast.LENGTH_LONG).show()
+                    connectWifi(device)
                 }
             }
         }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == RQ_ACCESS_FINE_LOCATION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                lookupDevice()
+            }
+        }
+    }
+
+    private fun connectWifi(device: ScanResult) {
+        WifiUtils.withContext(this@ServerSelectActivity).enableWifi();
+        WifiUtils.withContext(this@ServerSelectActivity)
+            .connectWith(device.SSID, "")
+            .onConnectionResult(object : ConnectionSuccessListener {
+                override fun success() {
+                    Toast.makeText(this@ServerSelectActivity, "Connected to WiFi", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun failed(errorCode: ConnectionErrorCode) {
+                    Toast.makeText(this@ServerSelectActivity, "Failed to connect", Toast.LENGTH_SHORT).show()
+                }
+            }).start()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,6 +135,14 @@ class ServerSelectActivity : AppCompatActivity() {
                 }, null)
 
 
+        }
+
+        binding.scanwifiButton.setOnClickListener {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), RQ_ACCESS_FINE_LOCATION)
+            } else {
+                lookupDevice()
+            }
         }
 
         binding.serverSelectIPInput.setStartIconOnClickListener {
@@ -208,6 +245,32 @@ class ServerSelectActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun lookupDevice() {
+        viewModel.loading.value = true
+        val deviceFilter: WifiDeviceFilter = WifiDeviceFilter.Builder()
+            //.setNamePattern(Pattern.compile("RASPIO_"))
+            .build()
+        val pairingRequest: AssociationRequest = AssociationRequest.Builder()
+            .addDeviceFilter(deviceFilter)
+            .build()
+        val deviceManager: CompanionDeviceManager = getSystemService(COMPANION_DEVICE_SERVICE) as CompanionDeviceManager
+        deviceManager.associate(pairingRequest,
+            object : CompanionDeviceManager.Callback() {
+                override fun onDeviceFound(chooserLauncher: IntentSender) {
+                    viewModel.loading.value = false
+                    temp.launch(IntentSenderRequest.Builder(chooserLauncher).build())
+                }
+
+                override fun onFailure(error: CharSequence?) {
+                    viewModel.loading.value = false
+                    Toast.makeText(this@ServerSelectActivity, "No WIFI found in area", Toast.LENGTH_LONG).show()
+                }
+            }, null
+        )
+
+
     }
 
     private suspend fun checkExisting(binding: ActivityServerSelectBinding) {
