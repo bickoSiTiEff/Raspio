@@ -66,6 +66,7 @@ class ServerSelectActivity : AppCompatActivity() {
         }
 
         binding.serverSelectIPScan.setOnClickListener {
+            var finished = false
             viewModel.loading.postValue(true)
             lifecycleScope.launch {
                 val nsdManager = (getSystemService(Context.NSD_SERVICE) as NsdManager)
@@ -84,6 +85,7 @@ class ServerSelectActivity : AppCompatActivity() {
                             withContext(Dispatchers.Main) {binding.serverSelectIP.setText(serviceInfo.host.toString().removePrefix("/"))}
                         }
                         viewModel.loading.postValue(false)
+                        finished = true
                     }
                 }
 
@@ -132,8 +134,10 @@ class ServerSelectActivity : AppCompatActivity() {
                 }
                 nsdManager.discoverServices("_raspio._tcp", NsdManager.PROTOCOL_DNS_SD, discoveryListener)
                 delay(5000)
-                nsdManager.stopServiceDiscovery(discoveryListener)
-                viewModel.loading.postValue(false)
+                if (!finished) {
+                    nsdManager.stopServiceDiscovery(discoveryListener)
+                    viewModel.loading.postValue(false)
+                }
             }
         }
     }
