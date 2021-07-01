@@ -29,6 +29,10 @@
     <string name="move_down">Move down</string>
     <string name="set_as_next">Set as next</string>
     <string name="remove">Remove</string>
-    <string name="shr_error_ip">Could not connect</string>
+    <string name="shr_error_ip">Could not connect to address</string>
     <string name="scan">Scan</string>
+    <string name="click_icon_helper">Click the icon to scan for Raspi in current network.</string>
+    <string name="scan_failed">Scan for Raspberry Pi failed</string>
+    <string name="not_found_on_local_network">Couldn\'t find device on local network</string>
+    <string name="ip_not_resolvable">Couldn\'t resolve IP of Raspberry Pi</string>
 </resources>

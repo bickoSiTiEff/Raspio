@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.serverSelect.ServerSelectActivity"
-            >
+    >
 
         <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -31,17 +31,21 @@
                 android:layout_marginBottom="16dp"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="64dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
                 app:errorEnabled="true"
-                android:visibility="@{viewModel.loading ? View.INVISIBLE : View.VISIBLE}">
+                android:visibility="@{viewModel.loading ? View.INVISIBLE : View.VISIBLE}"
+                app:startIconDrawable="@drawable/outline_wifi_black_36"
+                app:startIconTint="@color/bicko_horizon"
+                app:helperTextEnabled="true"
+                app:helperText="@string/click_icon_helper">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/serverSelectIPEditText"
                     android:text="@={viewModel.ip}"
-                    />
+            />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -52,20 +56,9 @@
                 android:id="@+id/serverSelectConfirm"
                 android:visibility="@{viewModel.loading ? View.INVISIBLE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/serverSelectIPInput"
-                android:layout_marginTop="16dp"/>
-
-        <Button
-                android:text="@string/scan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/serverSelectIPScan"
-                android:visibility="@{viewModel.loading ? View.INVISIBLE : View.VISIBLE}"
-                app:layout_constraintEnd_toStartOf="@id/serverSelectConfirm"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@+id/serverSelectConfirm"
-                app:layout_constraintTop_toTopOf="@+id/serverSelectConfirm"/>
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
                 android:text="@string/watermark"
