@@ -78,7 +78,7 @@ class ServerSelectActivity : AppCompatActivity() {
                         Log.e(TAG, "Resolve Succeeded. $serviceInfo")
                         Toast.makeText(this@ServerSelectActivity, "Resolved IP of local Raspberry Pi", Toast.LENGTH_LONG).show()
                         lifecycleScope.launch {
-                            withContext(Dispatchers.Main) {binding.serverSelectIP.setText(serviceInfo.host.toString())}
+                            withContext(Dispatchers.Main) {binding.serverSelectIP.setText(serviceInfo.host.toString().removePrefix("/"))}
                         }
                     }
                 }
