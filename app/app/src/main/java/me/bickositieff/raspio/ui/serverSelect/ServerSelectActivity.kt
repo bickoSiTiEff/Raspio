@@ -66,7 +66,7 @@ class ServerSelectActivity : AppCompatActivity() {
         }
 
         binding.serverSelectIPScan.setOnClickListener {
-            viewModel.loading.value = true
+            viewModel.loading.postValue(true)
             lifecycleScope.launch {
                 val nsdManager = (getSystemService(Context.NSD_SERVICE) as NsdManager)
                 val resolveListener = object : NsdManager.ResolveListener {
@@ -74,7 +74,7 @@ class ServerSelectActivity : AppCompatActivity() {
                     override fun onResolveFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
                         Toast.makeText(this@ServerSelectActivity, "Couldn't resolve IP of Raspberry Pi", Toast.LENGTH_LONG).show()
                         Log.e(TAG, "Resolve failed: $errorCode")
-                        viewModel.loading.value = false
+                        viewModel.loading.postValue(false)
                     }
 
                     override fun onServiceResolved(serviceInfo: NsdServiceInfo) {
@@ -83,7 +83,7 @@ class ServerSelectActivity : AppCompatActivity() {
                         lifecycleScope.launch {
                             withContext(Dispatchers.Main) {binding.serverSelectIP.setText(serviceInfo.host.toString().removePrefix("/"))}
                         }
-                        viewModel.loading.value = false
+                        viewModel.loading.postValue(false)
                     }
                 }
 
@@ -101,31 +101,31 @@ class ServerSelectActivity : AppCompatActivity() {
                             service.serviceType == "_raspio._tcp." -> {
                                 nsdManager.stopServiceDiscovery(this)
                                 nsdManager.resolveService(service, resolveListener)
-                                viewModel.loading.value = false
+                                viewModel.loading.postValue(false)
                             }
                         }
                     }
 
                     override fun onServiceLost(service: NsdServiceInfo) {
                         Log.e(TAG, "service lost: $service")
-                        viewModel.loading.value = false
+                        viewModel.loading.postValue(false)
                     }
 
                     override fun onDiscoveryStopped(serviceType: String) {
                         Log.i(TAG, "Discovery stopped: $serviceType")
-                        viewModel.loading.value = false
+                        viewModel.loading.postValue(false)
                     }
 
                     override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
                         Toast.makeText(this@ServerSelectActivity, "Scan for Raspberry Pi failed", Toast.LENGTH_LONG).show()
-                        viewModel.loading.value = false
+                        viewModel.loading.postValue(false)
                         Log.e(TAG, "Discovery failed: Error code:$errorCode")
                         nsdManager.stopServiceDiscovery(this)
                     }
 
                     override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {
                         Toast.makeText(this@ServerSelectActivity, "Scan for Raspberry Pi failed", Toast.LENGTH_LONG).show()
-                        viewModel.loading.value = false
+                        viewModel.loading.postValue(false)
                         Log.e(TAG, "Discovery failed: Error code:$errorCode")
                         nsdManager.stopServiceDiscovery(this)
                     }
@@ -133,7 +133,7 @@ class ServerSelectActivity : AppCompatActivity() {
                 nsdManager.discoverServices("_raspio._tcp", NsdManager.PROTOCOL_DNS_SD, discoveryListener)
                 delay(5000)
                 nsdManager.stopServiceDiscovery(discoveryListener)
-                viewModel.loading.value = false
+                viewModel.loading.postValue(false)
             }
         }
     }
