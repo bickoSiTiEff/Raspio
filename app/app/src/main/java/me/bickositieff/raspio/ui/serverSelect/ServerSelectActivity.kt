@@ -73,14 +73,14 @@ class ServerSelectActivity : AppCompatActivity() {
                 val resolveListener = object : NsdManager.ResolveListener {
 
                     override fun onResolveFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
-                        Toast.makeText(this@ServerSelectActivity, "Couldn't resolve IP of Raspberry Pi", Toast.LENGTH_LONG).show()
+                        Snackbar.make(this@ServerSelectActivity.findViewById(R.id.serverSelectBranding), "Couldn't resolve IP of Raspberry Pi", Snackbar.LENGTH_LONG).show()
                         Log.e(TAG, "Resolve failed: $errorCode")
                         viewModel.loading.postValue(false)
                     }
 
                     override fun onServiceResolved(serviceInfo: NsdServiceInfo) {
                         Log.e(TAG, "Resolve Succeeded. $serviceInfo")
-                        Toast.makeText(this@ServerSelectActivity, "Resolved IP of local Raspberry Pi", Toast.LENGTH_LONG).show()
+                        Snackbar.make(this@ServerSelectActivity.findViewById(R.id.serverSelectBranding), "Resolved IP of local Raspberry Pi", Snackbar.LENGTH_LONG).show()
                         lifecycleScope.launch {
                             withContext(Dispatchers.Main) {binding.serverSelectIP.setText(serviceInfo.host.toString().removePrefix("/"))}
                         }
@@ -115,18 +115,19 @@ class ServerSelectActivity : AppCompatActivity() {
 
                     override fun onDiscoveryStopped(serviceType: String) {
                         Log.i(TAG, "Discovery stopped: $serviceType")
+                        Snackbar.make(this@ServerSelectActivity.findViewById(R.id.serverSelectBranding), "Couldn't find device on local network", Snackbar.LENGTH_LONG).show()
                         viewModel.loading.postValue(false)
                     }
 
                     override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
-                        Toast.makeText(this@ServerSelectActivity, "Scan for Raspberry Pi failed", Toast.LENGTH_LONG).show()
+                        Snackbar.make(this@ServerSelectActivity.findViewById(R.id.serverSelectBranding), "Scan for Raspberry Pi failed", Snackbar.LENGTH_LONG).show()
                         viewModel.loading.postValue(false)
                         Log.e(TAG, "Discovery failed: Error code:$errorCode")
                         nsdManager.stopServiceDiscovery(this)
                     }
 
                     override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {
-                        Toast.makeText(this@ServerSelectActivity, "Scan for Raspberry Pi failed", Toast.LENGTH_LONG).show()
+                        Snackbar.make(this@ServerSelectActivity.findViewById(R.id.serverSelectBranding), "Scan for Raspberry Pi failed", Snackbar.LENGTH_LONG).show()
                         viewModel.loading.postValue(false)
                         Log.e(TAG, "Discovery failed: Error code:$errorCode")
                         nsdManager.stopServiceDiscovery(this)
