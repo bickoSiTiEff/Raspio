@@ -66,9 +66,11 @@ class ServerSelectActivity : AppCompatActivity() {
     }
 
     private fun connectWifi(device: ScanResult) {
+        WifiUtils.enableLog(true);
         WifiUtils.withContext(this@ServerSelectActivity).enableWifi();
         WifiUtils.withContext(this@ServerSelectActivity)
             .connectWith(device.SSID, "")
+            .setTimeout(40000)
             .onConnectionResult(object : ConnectionSuccessListener {
                 override fun success() {
                     Toast.makeText(this@ServerSelectActivity, "Connected to WiFi", Toast.LENGTH_SHORT).show()
