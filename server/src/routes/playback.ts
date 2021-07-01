@@ -8,6 +8,23 @@ export default async (): Promise<ExpressRouter> => {
 	const mpc = new MPC();
 	await mpc.connectTCP(process.env.MPD_HOST || "localhost", Number(process.env.MPD_PORT || 6600));
 
+	playback.get("/", async (req, res) => {
+
+		const reportedStatus = await mpc.status.status();
+
+		res.send({
+			duration: reportedStatus.duration,
+			elapsed: reportedStatus.elapsed,
+			consume: reportedStatus.consume,
+			shuffle: reportedStatus.random,
+			repeat: reportedStatus.repeat,
+			currentlyPlayingIndex: reportedStatus.song,
+			state: reportedStatus.state,
+			volume: reportedStatus.volume,
+			crossfade: reportedStatus.xfade
+		});
+	});
+
 	playback.post("/play", async (req, res) => {
 		await mpc.playback.play();
 		res.status(204).send();
