@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="bicko_horizon">#FFA95A</color>
+    <color name="bicko_sunflower">#FFCA6C</color>
+    <color name="bicko_coral">#DC7C76</color>
+    <color name="bicko_deep_red">#780000</color>
 </resources>
