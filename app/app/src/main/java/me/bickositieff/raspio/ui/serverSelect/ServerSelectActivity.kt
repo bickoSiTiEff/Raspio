@@ -13,7 +13,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.bickositieff.raspio.MainActivity
 import me.bickositieff.raspio.R
 import me.bickositieff.raspio.api.RaspioServerDecorator
@@ -74,7 +77,9 @@ class ServerSelectActivity : AppCompatActivity() {
                     override fun onServiceResolved(serviceInfo: NsdServiceInfo) {
                         Log.e(TAG, "Resolve Succeeded. $serviceInfo")
                         Toast.makeText(this@ServerSelectActivity, "Resolved IP of local Raspberry Pi", Toast.LENGTH_LONG).show()
-                        binding.serverSelectIP.setText(serviceInfo.host.toString())
+                        lifecycleScope.launch {
+                            withContext(Dispatchers.Main) {binding.serverSelectIP.setText(serviceInfo.host.toString())}
+                        }
                     }
                 }
 
