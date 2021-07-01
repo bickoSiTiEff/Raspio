@@ -1,13 +1,11 @@
 package me.bickositieff.raspio.ui.serverSelect
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -25,7 +23,6 @@ import me.bickositieff.raspio.databinding.ActivityServerSelectBinding
 import me.bickositieff.raspio.generated.ApiHolder
 import me.bickositieff.raspio.generated.api.NetworkApi
 import java.net.ConnectException
-import java.net.InetAddress
 import java.net.SocketTimeoutException
 
 class ServerSelectActivity : AppCompatActivity() {
@@ -74,12 +71,12 @@ class ServerSelectActivity : AppCompatActivity() {
 
                     override fun onResolveFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
                         Snackbar.make(this@ServerSelectActivity.findViewById(R.id.serverSelectBranding), "Couldn't resolve IP of Raspberry Pi", Snackbar.LENGTH_LONG).show()
-                        Log.e(TAG, "Resolve failed: $errorCode")
+                        Log.e(tag, "Resolve failed: $errorCode")
                         viewModel.loading.postValue(false)
                     }
 
                     override fun onServiceResolved(serviceInfo: NsdServiceInfo) {
-                        Log.e(TAG, "Resolve Succeeded. $serviceInfo")
+                        Log.e(tag, "Resolve Succeeded. $serviceInfo")
                         Snackbar.make(this@ServerSelectActivity.findViewById(R.id.serverSelectBranding), "Resolved IP of local Raspberry Pi", Snackbar.LENGTH_LONG).show()
                         lifecycleScope.launch {
                             withContext(Dispatchers.Main) {binding.serverSelectIPEditText.setText(serviceInfo.host.toString().removePrefix("/"))}
@@ -91,14 +88,14 @@ class ServerSelectActivity : AppCompatActivity() {
 
                 val discoveryListener = object : NsdManager.DiscoveryListener {
                     override fun onDiscoveryStarted(regType: String) {
-                        Log.d(TAG, "Service discovery started")
+                        Log.d(tag, "Service discovery started")
                     }
 
                     override fun onServiceFound(service: NsdServiceInfo) {
-                        Log.d(TAG, "Service discovery success$service")
+                        Log.d(tag, "Service discovery success$service")
                         when {
                             service.serviceType != "_raspio._tcp." ->
-                                Log.d(TAG, "Unknown Service Type: ${service.serviceType}")
+                                Log.d(tag, "Unknown Service Type: ${service.serviceType}")
 
                             service.serviceType == "_raspio._tcp." -> {
                                 nsdManager.stopServiceDiscovery(this)
@@ -109,12 +106,12 @@ class ServerSelectActivity : AppCompatActivity() {
                     }
 
                     override fun onServiceLost(service: NsdServiceInfo) {
-                        Log.e(TAG, "service lost: $service")
+                        Log.e(tag, "service lost: $service")
                         viewModel.loading.postValue(false)
                     }
 
                     override fun onDiscoveryStopped(serviceType: String) {
-                        Log.i(TAG, "Discovery stopped: $serviceType")
+                        Log.i(tag, "Discovery stopped: $serviceType")
                         Snackbar.make(this@ServerSelectActivity.findViewById(R.id.serverSelectBranding), "Couldn't find device on local network", Snackbar.LENGTH_LONG).show()
                         viewModel.loading.postValue(false)
                     }
@@ -122,14 +119,14 @@ class ServerSelectActivity : AppCompatActivity() {
                     override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
                         Snackbar.make(this@ServerSelectActivity.findViewById(R.id.serverSelectBranding), "Scan for Raspberry Pi failed", Snackbar.LENGTH_LONG).show()
                         viewModel.loading.postValue(false)
-                        Log.e(TAG, "Discovery failed: Error code:$errorCode")
+                        Log.e(tag, "Discovery failed: Error code:$errorCode")
                         nsdManager.stopServiceDiscovery(this)
                     }
 
                     override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {
                         Snackbar.make(this@ServerSelectActivity.findViewById(R.id.serverSelectBranding), "Scan for Raspberry Pi failed", Snackbar.LENGTH_LONG).show()
                         viewModel.loading.postValue(false)
-                        Log.e(TAG, "Discovery failed: Error code:$errorCode")
+                        Log.e(tag, "Discovery failed: Error code:$errorCode")
                         nsdManager.stopServiceDiscovery(this)
                     }
                 }
