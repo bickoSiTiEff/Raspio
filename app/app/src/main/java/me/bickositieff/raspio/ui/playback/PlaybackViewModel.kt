@@ -24,7 +24,7 @@ class PlaybackViewModel : ViewModel() {
         )
         while(true) {
             emit(PlaybackApi.getPlayback().body()!!)
-            delay(5000)
+            delay(500)
         }
     }
 

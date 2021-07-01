@@ -11,8 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
-import androidx.lifecycle.map
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.lifecycleScope
 import androidx.media.session.MediaButtonReceiver
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -20,6 +19,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
+import me.bickositieff.raspio.generated.api.PlaybackApi
 import me.bickositieff.raspio.generated.models.GETPlaybackResponse
 import me.bickositieff.raspio.generated.models.GETPlaybackResponseState
 import me.bickositieff.raspio.ui.models.Song
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mediaSessionSupportedActions = PlaybackStateCompat.ACTION_PLAY or
             PlaybackStateCompat.ACTION_PAUSE or
+            PlaybackStateCompat.ACTION_PLAY_PAUSE or
             PlaybackStateCompat.ACTION_STOP or
             PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS or
             PlaybackStateCompat.ACTION_SKIP_TO_NEXT or
@@ -73,15 +75,21 @@ class MainActivity : AppCompatActivity() {
 
         playback.playbackState.observe(this) {
             mediaSession.setPlaybackState(createPlaybackState(it))
+            mediaSession.setMetadata(
+                createMetadataState(
+                    playlist.playlist.value?.getOrNull(
+                        it.currentlyPlayingIndex?.toInt() ?: return@observe
+                    )
+                ) ?: return@observe
+            )
         }
 
-        playback.playbackState.map { it.currentlyPlayingIndex }.switchMap { position ->
-            return@switchMap playlist.playlist.map {
-                if (position == null) return@map null
-                else it.getOrNull(position.toInt())
-            }
-        }.observe(this) {
-            mediaSession.setMetadata(createMetadataState(it))
+        playlist.playlist.observe(this) {
+            mediaSession.setMetadata(
+                createMetadataState(
+                    it.getOrNull(playback.playbackState.value?.currentlyPlayingIndex?.toInt() ?: return@observe)
+                )
+            )
         }
 
         mediaSession.isActive = true
@@ -145,6 +153,39 @@ class MainActivity : AppCompatActivity() {
                 )
             )
 
+            addAction(
+                NotificationCompat.Action(
+                    R.drawable.outline_skip_next_24,
+                    getString(R.string.skip_song),
+                    MediaButtonReceiver.buildMediaButtonPendingIntent(
+                        this@MainActivity,
+                        PlaybackStateCompat.ACTION_SKIP_TO_NEXT
+                    )
+                )
+            )
+
+            addAction(
+                NotificationCompat.Action(
+                    R.drawable.outline_skip_previous_24,
+                    getString(R.string.skip_song),
+                    MediaButtonReceiver.buildMediaButtonPendingIntent(
+                        this@MainActivity,
+                        PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
+                    )
+                )
+            )
+
+            addAction(
+                NotificationCompat.Action(
+                    R.drawable.outline_stop_24,
+                    getString(R.string.skip_song),
+                    MediaButtonReceiver.buildMediaButtonPendingIntent(
+                        this@MainActivity,
+                        PlaybackStateCompat.ACTION_STOP
+                    )
+                )
+            )
+
             setStyle(
                 androidx.media.app.NotificationCompat.MediaStyle()
                     .setMediaSession(mediaSession.sessionToken)
@@ -158,40 +199,57 @@ class MainActivity : AppCompatActivity() {
 
     inner class MediaCallback : MediaSessionCompat.Callback() {
         override fun onPlay() {
-            TODO()
+            lifecycleScope.launch {
+                PlaybackApi.postPlaybackPlay()
+            }
         }
 
         override fun onPause() {
-            TODO()
+            lifecycleScope.launch {
+                PlaybackApi.postPlaybackPause()
+            }
         }
 
         override fun onStop() {
-            TODO()
+            lifecycleScope.launch {
+                PlaybackApi.postPlaybackStop()
+            }
         }
 
         override fun onSkipToPrevious() {
-            TODO()
+            lifecycleScope.launch {
+                PlaybackApi.postPlaybackPrevious()
+            }
         }
 
         override fun onSkipToNext() {
-            TODO()
+            lifecycleScope.launch {
+                PlaybackApi.postPlaybackNext()
+            }
         }
 
         override fun onSeekTo(pos: Long) {
-            TODO()
+            lifecycleScope.launch {
+                PlaybackApi.postPlaybackSeek(pos / 1000.0f)
+            }
         }
 
         override fun onSetShuffleMode(shuffleMode: Int) {
-            TODO()
+            lifecycleScope.launch {
+                PlaybackApi.postPlaybackShuffle(shuffleMode != PlaybackStateCompat.SHUFFLE_MODE_NONE)
+            }
         }
 
         override fun onSetRepeatMode(repeatMode: Int) {
-            TODO()
+            lifecycleScope.launch {
+                PlaybackApi.postPlaybackRepeat(repeatMode != PlaybackStateCompat.REPEAT_MODE_NONE)
+            }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        mediaSession.isActive = false
         mediaSession.release()
     }
 
