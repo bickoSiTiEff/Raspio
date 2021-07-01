@@ -5,7 +5,7 @@
     <string name="image_description">Song-Cover</string>
     <string name="transmission">Transmission</string>
     <string name="frequency">Frequency</string>
-    <string name="transmission_state">transmission state</string>
+    <string name="transmission_state">Radio Transmission</string>
     <string name="stop_playback">Stop the Playback</string>
     <string name="play_pause_playback">Play/Pause the playback.</string>
     <string name="skip_song">Skip the song.</string>
