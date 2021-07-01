@@ -82,7 +82,7 @@ class ServerSelectActivity : AppCompatActivity() {
                         Log.e(TAG, "Resolve Succeeded. $serviceInfo")
                         Snackbar.make(this@ServerSelectActivity.findViewById(R.id.serverSelectBranding), "Resolved IP of local Raspberry Pi", Snackbar.LENGTH_LONG).show()
                         lifecycleScope.launch {
-                            withContext(Dispatchers.Main) {binding.serverSelectIP.setText(serviceInfo.host.toString().removePrefix("/"))}
+                            withContext(Dispatchers.Main) {binding.serverSelectIPEditText.setText(serviceInfo.host.toString().removePrefix("/"))}
                         }
                         viewModel.loading.postValue(false)
                         finished = true
