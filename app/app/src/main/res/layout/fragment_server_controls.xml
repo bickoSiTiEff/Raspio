@@ -2,17 +2,23 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <import type="android.text.InputType"/>
+
         <variable
                 name="viewModel"
                 type="me.bickositieff.raspio.ui.serverControls.ServerControlsViewModel"/>
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.serverControls.ServerControlsFragment">
-        <Switch
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+                android:background="?attr/selectableItemBackground"
                 android:text="@string/transmission_state"
                 android:checked="@{viewModel.transmissionOn}"
                 android:layout_width="0dp"
@@ -25,33 +31,29 @@
                 android:textSize="24sp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"/>
-        <TextView
-                android:text="@string/frequency"
-                android:layout_width="wrap_content"
+
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/frequency_label"
-                app:layout_constraintEnd_toStartOf="@+id/frequency"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp"
-                android:textSize="24sp"
-                app:layout_constraintTop_toTopOf="@+id/frequency"
-                app:layout_constraintBottom_toBottomOf="@+id/frequency"/>
-        <EditText
-                android:text="@={viewModel.frequency}"
-                android:enabled="@{!viewModel.transmissionOn}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
                 android:id="@+id/frequency"
-                app:layout_constraintTop_toBottomOf="@+id/transmission_state"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:hint="@string/frequency"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="24sp"
-                android:importantForAutofill="no"
-                tools:ignore="LabelFor"
-                app:layout_constraintStart_toEndOf="@+id/frequency_label"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintTop_toBottomOf="@+id/transmission_state"
+                android:layout_marginTop="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/frequencyEditText"
+                    android:text="@={viewModel.frequency}"
+                    android:enabled="@{!viewModel.transmissionOn}"
+                    android:inputType="number"
+                    />
+        </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

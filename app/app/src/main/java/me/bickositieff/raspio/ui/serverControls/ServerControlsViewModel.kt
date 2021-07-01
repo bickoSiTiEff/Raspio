@@ -11,22 +11,14 @@ import me.bickositieff.raspio.generated.api.TransmissionApi
 class ServerControlsViewModel(application: Application) : AndroidViewModel(application) {
 
     val frequency = MutableLiveData<String>().apply {
-        value = "88"
+        value = "88" //range: 76 - 108
     }
 
     val transmissionOn = MutableLiveData(false)
 
-    fun changeTransmissionState(on: Boolean) {
-        if(transmissionOn.value == on) return
-        val frequencyNum = try {
-            frequency.value?.toInt() ?: 0
-        } catch (e: NumberFormatException) {
-            Toast.makeText(getApplication(), "Unusable frequency. Please input a positive number", Toast.LENGTH_LONG).show()
-            return
-        }
+    fun changeTransmissionState(on: Boolean, frequencyNum: Int) {
         viewModelScope.launch {
             if (on) TransmissionApi.postTransmissionStart(frequencyNum) else TransmissionApi.postTransmissionStop()
         }
-        transmissionOn.value = on
     }
 }
