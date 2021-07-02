@@ -18,6 +18,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import me.bickositieff.raspio.generated.api.PlaybackApi
@@ -61,7 +62,8 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         setupMediaSession()
-        sendMediaNotification()
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("notification_toggle", true))
+            sendMediaNotification()
     }
 
     private fun setupMediaSession() {
