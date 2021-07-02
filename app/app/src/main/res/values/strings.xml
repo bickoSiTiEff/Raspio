@@ -18,9 +18,6 @@
     <string name="wip">WIP - Song-Download</string>
     <string name="add_as_next">Add as next</string>
     <string name="add_to_queue">Add to queue</string>
-    <string name="notification_toggle">notification_toggle</string>
-    <string name="management_toggle">management_toggle</string>
-    <string name="remove_button">remove_button</string>
     <string name="server_timeout">Couldn\'t connect to server.</string>
     <string name="increase_volume">Increase volume</string>
     <string name="decrease_volume">Decrease volume</string>
@@ -36,4 +33,7 @@
     <string name="scan_failed">Scan for Raspberry Pi failed</string>
     <string name="not_found_on_local_network">Couldn\'t find device on local network</string>
     <string name="ip_not_resolvable">Couldn\'t resolve IP of Raspberry Pi</string>
+    <string name="preferenceRemoveServer">Remove Server</string>
+    <string name="preferenceManagementScreen">Enable management screen</string>
+    <string name="preferenceNotificationToggle">Toggle notifications</string>
 </resources>
