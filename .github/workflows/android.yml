@@ -58,7 +58,7 @@ jobs:
       - name: Update repository indices
         uses: docker://registry.gitlab.com/fdroid/docker-executable-fdroidserver:master
         with:
-          entrypoint: /fdroidserver/fdroid
+          entrypoint: /usr/local/bin/fdroid
           args: update
       - name: Upload changes to F-Droid repository
         run: |
